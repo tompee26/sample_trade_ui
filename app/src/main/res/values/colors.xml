@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#202835</color>
+    <color name="colorPrimaryDark">#202835</color>
+    <color name="colorAccent">#f5bb0b</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorLightGrey">#7a828c</color>
+
+    <color name="colorMarketToolbarText">#c9cbcf</color>
+    <color name="colorMarketSort">#1a212b</color>
+    <color name="colorListBg">#12151c</color>
+    <color name="colorPositiveChange">#4c6e06</color>
+    <color name="colorNegativeChange">#9c0a53</color>
+</resources>

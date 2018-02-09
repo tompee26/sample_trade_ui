@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Binance</string>
+
+    <string name="market_tab_title">Market</string>
+    <string name="market_tab_favorite">Favorites</string>
+    <string name="market_tab_bnb">BNB</string>
+    <string name="market_tab_btc">BTC</string>
+    <string name="market_tab_eth">ETH</string>
+    <string name="market_tab_usdt">USDT</string>
+
+    <string name="market_pair">Pair</string>
+    <string name="market_vol">Vol</string>
+    <string name="market_last_price">Last Price</string>
+    <string name="market_pair_24h_change">24h Chg%</string>
+
+    <string name="market_item_volume_format">Vol %1$s</string>
+    <string name="market_item_price_usd_format">$%1$s</string>
+    <string name="market_item_change_format">%1$s%%</string>
+</resources>
