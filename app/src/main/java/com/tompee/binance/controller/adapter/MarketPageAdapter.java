@@ -11,15 +11,37 @@ import com.tompee.binance.controller.fragment.ListFragment;
 public class MarketPageAdapter extends FragmentStatePagerAdapter {
     private static final int PAGE_COUNT = 5;
     private Context mContext;
+    private final ListFragment mFavorite;
+    private final ListFragment mBnb;
+    private final ListFragment mBtc;
+    private final ListFragment mEth;
+    private final ListFragment mUsdt;
 
     public MarketPageAdapter(Context context, FragmentManager fragmentManager) {
         super(fragmentManager);
         mContext = context;
+        mFavorite = ListFragment.getInstance("Favorite");
+        mBnb = ListFragment.getInstance("BNB");
+        mBtc = ListFragment.getInstance("BTC");
+        mEth = ListFragment.getInstance("ETH");
+        mUsdt = ListFragment.getInstance("USDT");
     }
 
     @Override
     public Fragment getItem(int position) {
-        return new ListFragment();
+        switch (position) {
+            case 0:
+                return mFavorite;
+            case 1:
+                return mBnb;
+            case 2:
+                return mBtc;
+            case 3:
+                return mEth;
+            case 4:
+                return mUsdt;
+        }
+        return mFavorite;
     }
 
     @Override

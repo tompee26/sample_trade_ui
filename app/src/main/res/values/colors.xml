@@ -9,6 +9,10 @@
     <color name="colorMarketToolbarText">#c9cbcf</color>
     <color name="colorMarketSort">#1a212b</color>
     <color name="colorListBg">#12151c</color>
-    <color name="colorPositiveChange">#4c6e06</color>
+    <color name="colorPositiveChange">#74A801</color>
     <color name="colorNegativeChange">#9c0a53</color>
+    <color name="colorSelectedOrderTrade">#2C3450</color>
+
+    <color name="colorOrderBidBg">#26301B</color>
+    <color name="colorOrderAskBg">#3B142B</color>
 </resources>

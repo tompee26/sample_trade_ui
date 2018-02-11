@@ -1,0 +1,944 @@
+{
+  "data": [
+    {
+      "refToken": "BTC",
+      "token": [
+        {
+          "name": "ADA",
+          "info": {
+            "volume": 2015.96,
+            "price": 0.0004345,
+            "priceUSD": 0.35,
+            "priceChange": -0.00000136,
+            "priceChangePercent": -3.04,
+            "low": 0.00004308,
+            "high": 0.00004626,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "BAT",
+          "info": {
+            "volume": 58.29,
+            "price": 0.0004149,
+            "priceUSD": 0.34,
+            "priceChange": -0.0000155,
+            "priceChangePercent": -4,
+            "low": 0.00004059,
+            "high": 0.00004338,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "CHAT",
+          "info": {
+            "volume": 122.42,
+            "price": 0.00003121,
+            "priceUSD": 0.25,
+            "priceChange": 5e-8,
+            "priceChangePercent": 0.16,
+            "low": 0.00002937,
+            "high": 0.0000349,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "NAV",
+          "info": {
+            "volume": 465.64,
+            "price": 0.0002044,
+            "priceUSD": 1.67,
+            "priceChange": 0.0000164,
+            "priceChangePercent": 7.45,
+            "low": 0.0001781,
+            "high": 0.0002412,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "BLZ",
+          "info": {
+            "volume": 1067.58,
+            "price": 0.00006788,
+            "priceUSD": 0.55,
+            "priceChange": -0.0001434,
+            "priceChangePercent": -17,
+            "low": 0.0000665,
+            "high": 0.0000825,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "MANA",
+          "info": {
+            "volume": 309.56,
+            "price": 0.00001358,
+            "priceUSD": 0.11,
+            "priceChange": 2.3e-7,
+            "priceChangePercent": 1.57,
+            "low": 0.00001236,
+            "high": 0.00001493,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "WAVES",
+          "info": {
+            "volume": 135.2,
+            "price": 0.000663,
+            "priceUSD": 5.42,
+            "priceChange": -0.0000052,
+            "priceChangePercent": -0.78,
+            "low": 0.00063,
+            "high": 0.0006786,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "ZEC",
+          "info": {
+            "volume": 794.16,
+            "price": 0.054422,
+            "priceUSD": 443.13,
+            "priceChange": 0.000817,
+            "priceChangePercent": 1.73,
+            "low": 0.051798,
+            "high": 0.058957,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "BNB",
+          "info": {
+            "volume": 1904.65,
+            "price": 0.0010746,
+            "priceUSD": 8.76,
+            "priceChange": -0.0000267,
+            "priceChangePercent": -2.33,
+            "low": 0.0010371,
+            "high": 0.001141,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "LTC",
+          "info": {
+            "volume": 1569.61,
+            "price": 0.018144,
+            "priceUSD": 148.05,
+            "priceChange": -0.000501,
+            "priceChangePercent": -2.69,
+            "low": 0.017904,
+            "high": 0.018773,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        }
+      ]
+    },
+    {
+      "refToken": "ETH",
+      "token": [
+        {
+          "name": "ADA",
+          "info": {
+            "volume": 2015.96,
+            "price": 0.0004345,
+            "priceUSD": 0.35,
+            "priceChange": -0.00000136,
+            "priceChangePercent": -3.04,
+            "low": 0.00004308,
+            "high": 0.00004626,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "BAT",
+          "info": {
+            "volume": 58.29,
+            "price": 0.0004149,
+            "priceUSD": 0.34,
+            "priceChange": -0.0000155,
+            "priceChangePercent": -4,
+            "low": 0.00004059,
+            "high": 0.00004338,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "CHAT",
+          "info": {
+            "volume": 122.42,
+            "price": 0.00003121,
+            "priceUSD": 0.25,
+            "priceChange": 5e-8,
+            "priceChangePercent": 0.16,
+            "low": 0.00002937,
+            "high": 0.0000349,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "NAV",
+          "info": {
+            "volume": 465.64,
+            "price": 0.0002044,
+            "priceUSD": 1.67,
+            "priceChange": 0.0000164,
+            "priceChangePercent": 7.45,
+            "low": 0.0001781,
+            "high": 0.0002412,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "BLZ",
+          "info": {
+            "volume": 1067.58,
+            "price": 0.00006788,
+            "priceUSD": 0.55,
+            "priceChange": -0.0001434,
+            "priceChangePercent": -17,
+            "low": 0.0000665,
+            "high": 0.0000825,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "MANA",
+          "info": {
+            "volume": 309.56,
+            "price": 0.00001358,
+            "priceUSD": 0.11,
+            "priceChange": 2.3e-7,
+            "priceChangePercent": 1.57,
+            "low": 0.00001236,
+            "high": 0.00001493,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "WAVES",
+          "info": {
+            "volume": 135.2,
+            "price": 0.000663,
+            "priceUSD": 5.42,
+            "priceChange": -0.0000052,
+            "priceChangePercent": -0.78,
+            "low": 0.00063,
+            "high": 0.0006786,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "ZEC",
+          "info": {
+            "volume": 794.16,
+            "price": 0.054422,
+            "priceUSD": 443.13,
+            "priceChange": 0.000817,
+            "priceChangePercent": 1.73,
+            "low": 0.051798,
+            "high": 0.058957,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "BNB",
+          "info": {
+            "volume": 1904.65,
+            "price": 0.0010746,
+            "priceUSD": 8.76,
+            "priceChange": -0.0000267,
+            "priceChangePercent": -2.33,
+            "low": 0.0010371,
+            "high": 0.001141,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "LTC",
+          "info": {
+            "volume": 1569.61,
+            "price": 0.018144,
+            "priceUSD": 148.05,
+            "priceChange": -0.000501,
+            "priceChangePercent": -2.69,
+            "low": 0.017904,
+            "high": 0.018773,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        }
+      ]
+    },
+    {
+      "refToken": "BNB",
+      "token": [
+        {
+          "name": "ADA",
+          "info": {
+            "volume": 2015.96,
+            "price": 0.0004345,
+            "priceUSD": 0.35,
+            "priceChange": -0.00000136,
+            "priceChangePercent": -3.04,
+            "low": 0.00004308,
+            "high": 0.00004626,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "BAT",
+          "info": {
+            "volume": 58.29,
+            "price": 0.0004149,
+            "priceUSD": 0.34,
+            "priceChange": -0.0000155,
+            "priceChangePercent": -4,
+            "low": 0.00004059,
+            "high": 0.00004338,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "CHAT",
+          "info": {
+            "volume": 122.42,
+            "price": 0.00003121,
+            "priceUSD": 0.25,
+            "priceChange": 5e-8,
+            "priceChangePercent": 0.16,
+            "low": 0.00002937,
+            "high": 0.0000349,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "NAV",
+          "info": {
+            "volume": 465.64,
+            "price": 0.0002044,
+            "priceUSD": 1.67,
+            "priceChange": 0.0000164,
+            "priceChangePercent": 7.45,
+            "low": 0.0001781,
+            "high": 0.0002412,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "BLZ",
+          "info": {
+            "volume": 1067.58,
+            "price": 0.00006788,
+            "priceUSD": 0.55,
+            "priceChange": -0.0001434,
+            "priceChangePercent": -17,
+            "low": 0.0000665,
+            "high": 0.0000825,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "MANA",
+          "info": {
+            "volume": 309.56,
+            "price": 0.00001358,
+            "priceUSD": 0.11,
+            "priceChange": 2.3e-7,
+            "priceChangePercent": 1.57,
+            "low": 0.00001236,
+            "high": 0.00001493,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "WAVES",
+          "info": {
+            "volume": 135.2,
+            "price": 0.000663,
+            "priceUSD": 5.42,
+            "priceChange": -0.0000052,
+            "priceChangePercent": -0.78,
+            "low": 0.00063,
+            "high": 0.0006786,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "ZEC",
+          "info": {
+            "volume": 794.16,
+            "price": 0.054422,
+            "priceUSD": 443.13,
+            "priceChange": 0.000817,
+            "priceChangePercent": 1.73,
+            "low": 0.051798,
+            "high": 0.058957,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "BNB",
+          "info": {
+            "volume": 1904.65,
+            "price": 0.0010746,
+            "priceUSD": 8.76,
+            "priceChange": -0.0000267,
+            "priceChangePercent": -2.33,
+            "low": 0.0010371,
+            "high": 0.001141,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "LTC",
+          "info": {
+            "volume": 1569.61,
+            "price": 0.018144,
+            "priceUSD": 148.05,
+            "priceChange": -0.000501,
+            "priceChangePercent": -2.69,
+            "low": 0.017904,
+            "high": 0.018773,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        }
+      ]
+    },
+    {
+      "refToken": "USDT",
+      "token": [
+        {
+          "name": "ADA",
+          "info": {
+            "volume": 2015.96,
+            "price": 0.0004345,
+            "priceUSD": 0.35,
+            "priceChange": -0.00000136,
+            "priceChangePercent": -3.04,
+            "low": 0.00004308,
+            "high": 0.00004626,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "BAT",
+          "info": {
+            "volume": 58.29,
+            "price": 0.0004149,
+            "priceUSD": 0.34,
+            "priceChange": -0.0000155,
+            "priceChangePercent": -4,
+            "low": 0.00004059,
+            "high": 0.00004338,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "CHAT",
+          "info": {
+            "volume": 122.42,
+            "price": 0.00003121,
+            "priceUSD": 0.25,
+            "priceChange": 5e-8,
+            "priceChangePercent": 0.16,
+            "low": 0.00002937,
+            "high": 0.0000349,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "NAV",
+          "info": {
+            "volume": 465.64,
+            "price": 0.0002044,
+            "priceUSD": 1.67,
+            "priceChange": 0.0000164,
+            "priceChangePercent": 7.45,
+            "low": 0.0001781,
+            "high": 0.0002412,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "BLZ",
+          "info": {
+            "volume": 1067.58,
+            "price": 0.00006788,
+            "priceUSD": 0.55,
+            "priceChange": -0.0001434,
+            "priceChangePercent": -17,
+            "low": 0.0000665,
+            "high": 0.0000825,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "MANA",
+          "info": {
+            "volume": 309.56,
+            "price": 0.00001358,
+            "priceUSD": 0.11,
+            "priceChange": 2.3e-7,
+            "priceChangePercent": 1.57,
+            "low": 0.00001236,
+            "high": 0.00001493,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "WAVES",
+          "info": {
+            "volume": 135.2,
+            "price": 0.000663,
+            "priceUSD": 5.42,
+            "priceChange": -0.0000052,
+            "priceChangePercent": -0.78,
+            "low": 0.00063,
+            "high": 0.0006786,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "ZEC",
+          "info": {
+            "volume": 794.16,
+            "price": 0.054422,
+            "priceUSD": 443.13,
+            "priceChange": 0.000817,
+            "priceChangePercent": 1.73,
+            "low": 0.051798,
+            "high": 0.058957,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "BNB",
+          "info": {
+            "volume": 1904.65,
+            "price": 0.0010746,
+            "priceUSD": 8.76,
+            "priceChange": -0.0000267,
+            "priceChangePercent": -2.33,
+            "low": 0.0010371,
+            "high": 0.001141,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        },
+        {
+          "name": "LTC",
+          "info": {
+            "volume": 1569.61,
+            "price": 0.018144,
+            "priceUSD": 148.05,
+            "priceChange": -0.000501,
+            "priceChangePercent": -2.69,
+            "low": 0.017904,
+            "high": 0.018773,
+            "orderBook": {
+              "bidQty": 2058,
+              "bidPrice": 0.00004324,
+              "askQty": 20822,
+              "askPrice": 0.0004338
+            },
+            "marketTrade": {
+              "time": "2018-02-11T11:53:22.000Z",
+              "price": 0.00002001,
+              "amount": 78
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

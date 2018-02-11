@@ -11,7 +11,7 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="68dp"
+        android:layout_height="64dp"
         android:background="@color/colorListBg">
 
         <TextView
@@ -37,7 +37,7 @@
             android:id="@+id/refToken"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{marketItem.refTokenName}"
+            android:text="@{String.format(@string/market_item_ref_token_format, marketItem.refTokenName)}"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/colorLightGrey"
             app:layout_constraintBottom_toBottomOf="@+id/tokenName"
