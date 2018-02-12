@@ -65,7 +65,7 @@
             android:layout_marginTop="8dp"
             android:text="@{marketItem.priceText}"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/colorWhite"
+            android:textColor="@{marketItem.priceColor}"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toTopOf="parent" />
 

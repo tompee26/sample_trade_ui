@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -38,6 +39,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private ActivityMainBinding mBinding;
     private SortManager mSortManager;
     private SortInfo mSortInfo;
+    private MarketPageAdapter mMarketPageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +49,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mBinding = DataBindingUtil.setContentView(this,
                 R.layout.activity_main);
         mBinding.tabLayoutMain.setupWithViewPager(mBinding.viewPager);
-        LoadDataTask task = new LoadDataTask(this,
-                new MarketPageAdapter(this, getSupportFragmentManager()));
+        mMarketPageAdapter = new MarketPageAdapter(this, getSupportFragmentManager());
+        mBinding.viewPager.setOffscreenPageLimit(mMarketPageAdapter.getCount());
+        LoadDataTask task = new LoadDataTask(this);
         task.execute();
 
         mSortInfo = new SortInfo();
         setSortInfo();
+        sortList();
         mBinding.setSort(mSortInfo);
 
         mBinding.pair.setOnClickListener(this);
@@ -78,6 +82,61 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 break;
         }
         setSortInfo();
+        sortList();
+    }
+
+    private void sortList() {
+        switch (mSortManager.getSortType()) {
+            case PAIR:
+                Collections.sort(tokenListFavorite,  (l1, l2) -> l1.getTokenName().compareTo(l2.getTokenName()));
+                Collections.sort(tokenListBnb,  (l1, l2) -> l1.getTokenName().compareTo(l2.getTokenName()));
+                Collections.sort(tokenListBtc,  (l1, l2) -> l1.getTokenName().compareTo(l2.getTokenName()));
+                Collections.sort(tokenListEth,  (l1, l2) -> l1.getTokenName().compareTo(l2.getTokenName()));
+                Collections.sort(tokenListUsdt,  (l1, l2) -> l1.getTokenName().compareTo(l2.getTokenName()));
+                break;
+            case VOL:
+                Collections.sort(tokenListFavorite,  (l1, l2) -> -compareDouble(l1.getVolume(), l2.getVolume()));
+                Collections.sort(tokenListBnb,  (l1, l2) -> -compareDouble(l1.getVolume(), l2.getVolume()));
+                Collections.sort(tokenListBtc,  (l1, l2) -> -compareDouble(l1.getVolume(), l2.getVolume()));
+                Collections.sort(tokenListEth,  (l1, l2) -> -compareDouble(l1.getVolume(), l2.getVolume()));
+                Collections.sort(tokenListUsdt,  (l1, l2) -> -compareDouble(l1.getVolume(), l2.getVolume()));
+                break;
+            case LAST_PRICE_ASCENDING:
+                Collections.sort(tokenListFavorite,  (l1, l2) -> compareDouble(l1.getPrice(), l2.getPrice()));
+                Collections.sort(tokenListBnb,  (l1, l2) -> compareDouble(l1.getPrice(), l2.getPrice()));
+                Collections.sort(tokenListBtc,  (l1, l2) -> compareDouble(l1.getPrice(), l2.getPrice()));
+                Collections.sort(tokenListEth,  (l1, l2) -> compareDouble(l1.getPrice(), l2.getPrice()));
+                Collections.sort(tokenListUsdt,  (l1, l2) -> compareDouble(l1.getPrice(), l2.getPrice()));
+                break;
+            case LAST_PRICE_DESCENDING:
+                Collections.sort(tokenListFavorite,  (l1, l2) -> -compareDouble(l1.getPrice(), l2.getPrice()));
+                Collections.sort(tokenListBnb,  (l1, l2) -> -compareDouble(l1.getPrice(), l2.getPrice()));
+                Collections.sort(tokenListBtc,  (l1, l2) -> -compareDouble(l1.getPrice(), l2.getPrice()));
+                Collections.sort(tokenListEth,  (l1, l2) -> -compareDouble(l1.getPrice(), l2.getPrice()));
+                Collections.sort(tokenListUsdt,  (l1, l2) -> -compareDouble(l1.getPrice(), l2.getPrice()));
+                break;
+            case PERCENT_CHANGE_ASCENDING:
+                Collections.sort(tokenListFavorite,  (l1, l2) -> compareDouble(l1.getChange(), l2.getChange()));
+                Collections.sort(tokenListBnb,  (l1, l2) -> compareDouble(l1.getChange(), l2.getChange()));
+                Collections.sort(tokenListBtc,  (l1, l2) -> compareDouble(l1.getChange(), l2.getChange()));
+                Collections.sort(tokenListEth,  (l1, l2) -> compareDouble(l1.getChange(), l2.getChange()));
+                Collections.sort(tokenListUsdt,  (l1, l2) -> compareDouble(l1.getChange(), l2.getChange()));
+                break;
+            case PERCENT_CHANGE_DESCENDING:
+                Collections.sort(tokenListFavorite,  (l1, l2) -> -compareDouble(l1.getChange(), l2.getChange()));
+                Collections.sort(tokenListBnb,  (l1, l2) -> -compareDouble(l1.getChange(), l2.getChange()));
+                Collections.sort(tokenListBtc,  (l1, l2) -> -compareDouble(l1.getChange(), l2.getChange()));
+                Collections.sort(tokenListEth,  (l1, l2) -> -compareDouble(l1.getChange(), l2.getChange()));
+                Collections.sort(tokenListUsdt,  (l1, l2) -> -compareDouble(l1.getChange(), l2.getChange()));
+                break;
+        }
+        mMarketPageAdapter.sort();
+    }
+
+    private int compareDouble(double d1, double d2) {
+        if (d1 > d2) return 1;
+        if (d1 < d2) return -1;
+        return 0;
     }
 
     private void setSortInfo() {
@@ -149,11 +208,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     class LoadDataTask extends AsyncTask<Void, Void, Void> {
 
         private final Context mContext;
-        private final MarketPageAdapter mAdapter;
 
-        LoadDataTask(Context context, MarketPageAdapter adapter) {
+        LoadDataTask(Context context) {
             mContext = context;
-            mAdapter = adapter;
         }
 
         @Override
@@ -183,6 +240,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                         JSONObject info = tokenArray.getJSONObject(tokenIndex).getJSONObject("info");
                         marketItem.setVolume(info.getDouble("volume"));
                         marketItem.setPrice(info.getDouble("price"));
+                        marketItem.setPreviousPrice(info.getDouble("previousPrice"));
                         marketItem.setPriceUsd(info.getDouble("priceUSD"));
                         marketItem.setPriceChange(info.getDouble("priceChange"));
                         marketItem.setChange(info.getDouble("priceChangePercent"));
@@ -227,7 +285,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            mBinding.viewPager.setAdapter(mAdapter);
+            mBinding.viewPager.setAdapter(mMarketPageAdapter);
         }
     }
 }

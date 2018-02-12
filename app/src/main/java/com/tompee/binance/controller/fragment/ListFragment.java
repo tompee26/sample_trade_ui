@@ -21,10 +21,10 @@ import com.tompee.binance.databinding.FragmentListBinding;
 import com.tompee.binance.model.MarketItem;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class ListFragment extends Fragment implements ItemClickListener.OnItemClickListener {
+public class ListFragment extends Fragment implements ItemClickListener.OnItemClickListener, IListFragment{
     public static final String TOKEN_TAG = "refToken";
+    private MarketItemAdapter mMarketItemAdapter;
 
     public static ListFragment getInstance(String refToken) {
         ListFragment fragment = new ListFragment();
@@ -49,25 +49,24 @@ public class ListFragment extends Fragment implements ItemClickListener.OnItemCl
         binding.recyclerView.addItemDecoration(divider);
 
         ItemClickListener.addTo(binding.recyclerView).setOnItemClickListener(this);
-        MarketItemAdapter adapter;
         switch (getArguments().getString(TOKEN_TAG)) {
             case "BNB":
-                adapter = new MarketItemAdapter(MainActivity.tokenListBnb);
+                mMarketItemAdapter = new MarketItemAdapter(MainActivity.tokenListBnb);
                 break;
             case "BTC":
-                adapter = new MarketItemAdapter(MainActivity.tokenListBtc);
+                mMarketItemAdapter = new MarketItemAdapter(MainActivity.tokenListBtc);
                 break;
             case "ETH":
-                adapter = new MarketItemAdapter(MainActivity.tokenListEth);
+                mMarketItemAdapter = new MarketItemAdapter(MainActivity.tokenListEth);
                 break;
             case "USDT":
-                adapter = new MarketItemAdapter(MainActivity.tokenListUsdt);
+                mMarketItemAdapter = new MarketItemAdapter(MainActivity.tokenListUsdt);
                 break;
             default:
-                adapter = new MarketItemAdapter(new ArrayList<MarketItem>());
+                mMarketItemAdapter = new MarketItemAdapter(new ArrayList<MarketItem>());
                 break;
         }
-        binding.recyclerView.setAdapter(adapter);
+        binding.recyclerView.setAdapter(mMarketItemAdapter);
         return binding.getRoot();
     }
 
@@ -78,5 +77,12 @@ public class ListFragment extends Fragment implements ItemClickListener.OnItemCl
         intent.putExtra(MarketDetailActivity.MARKET_DETAIL_TAG, position);
         intent.putExtra(MarketDetailActivity.MARKET_DETAIL_TOKEN, getArguments().getString(TOKEN_TAG));
         getContext().startActivity(intent);
+    }
+
+    @Override
+    public void sort() {
+        if (mMarketItemAdapter != null) {
+            mMarketItemAdapter.notifyDataSetChanged();
+        }
     }
 }

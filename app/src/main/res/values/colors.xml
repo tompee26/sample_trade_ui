@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#202835</color>
     <color name="colorAccent">#f5bb0b</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="colorBlack">#000000</color>
     <color name="colorLightGrey">#7a828c</color>
 
     <color name="colorMarketToolbarText">#c9cbcf</color>

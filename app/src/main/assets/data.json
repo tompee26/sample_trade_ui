@@ -8,6 +8,7 @@
           "info": {
             "volume": 2015.96,
             "price": 0.0004345,
+            "previousPrice": 0.0004343,
             "priceUSD": 0.35,
             "priceChange": -0.00000136,
             "priceChangePercent": -3.04,
@@ -31,6 +32,7 @@
           "info": {
             "volume": 58.29,
             "price": 0.0004149,
+            "previousPrice": 0.0004109,
             "priceUSD": 0.34,
             "priceChange": -0.0000155,
             "priceChangePercent": -4,
@@ -54,6 +56,7 @@
           "info": {
             "volume": 122.42,
             "price": 0.00003121,
+            "previousPrice": 0.00003121,
             "priceUSD": 0.25,
             "priceChange": 5e-8,
             "priceChangePercent": 0.16,
@@ -77,6 +80,7 @@
           "info": {
             "volume": 465.64,
             "price": 0.0002044,
+            "previousPrice": 0.0002044,
             "priceUSD": 1.67,
             "priceChange": 0.0000164,
             "priceChangePercent": 7.45,
@@ -100,6 +104,7 @@
           "info": {
             "volume": 1067.58,
             "price": 0.00006788,
+            "previousPrice": 0.00006798,
             "priceUSD": 0.55,
             "priceChange": -0.0001434,
             "priceChangePercent": -17,
@@ -123,6 +128,7 @@
           "info": {
             "volume": 309.56,
             "price": 0.00001358,
+            "previousPrice": 0.00001378,
             "priceUSD": 0.11,
             "priceChange": 2.3e-7,
             "priceChangePercent": 1.57,
@@ -146,6 +152,7 @@
           "info": {
             "volume": 135.2,
             "price": 0.000663,
+            "previousPrice": 0.000653,
             "priceUSD": 5.42,
             "priceChange": -0.0000052,
             "priceChangePercent": -0.78,
@@ -169,6 +176,7 @@
           "info": {
             "volume": 794.16,
             "price": 0.054422,
+            "previousPrice": 0.054422,
             "priceUSD": 443.13,
             "priceChange": 0.000817,
             "priceChangePercent": 1.73,
@@ -192,6 +200,7 @@
           "info": {
             "volume": 1904.65,
             "price": 0.0010746,
+            "previousPrice": 0.0010746,
             "priceUSD": 8.76,
             "priceChange": -0.0000267,
             "priceChangePercent": -2.33,
@@ -215,6 +224,7 @@
           "info": {
             "volume": 1569.61,
             "price": 0.018144,
+            "previousPrice": 0.018244,
             "priceUSD": 148.05,
             "priceChange": -0.000501,
             "priceChangePercent": -2.69,

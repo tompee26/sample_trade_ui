@@ -12,13 +12,10 @@ import android.view.ViewGroup;
 
 import com.tompee.binance.MainActivity;
 import com.tompee.binance.R;
-import com.tompee.binance.controller.adapter.MarketItemAdapter;
 import com.tompee.binance.controller.adapter.OrderBidAdapter;
 import com.tompee.binance.databinding.FragmentOrderBookBinding;
-import com.tompee.binance.model.MarketItem;
 import com.tompee.binance.model.OrderBook;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class OrderBookFragment extends Fragment {

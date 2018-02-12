@@ -26,6 +26,7 @@ public class MarketItem extends BaseObservable {
     private double mPriceChange;
     private double mPriceLow;
     private double mPriceHigh;
+    private double mPreviousPrice;
     private final List<OrderBook> mOrderBook;
 
     public MarketItem(Context context, String tokenName, String refTokenName) {
@@ -51,7 +52,9 @@ public class MarketItem extends BaseObservable {
 
     @Bindable
     public String getVolumeText() {
-        return getStringFromDouble(mVolume);
+        DecimalFormat df = new DecimalFormat("#,###.00", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
+        df.setMaximumFractionDigits(340);
+        return df.format(mVolume);
     }
 
     public void setVolume(double volume) {
@@ -171,5 +174,45 @@ public class MarketItem extends BaseObservable {
 
     public List<OrderBook> getOrderBook(){
         return mOrderBook;
+    }
+
+    @Bindable
+    public int getPriceColor() {
+        if (mPreviousPrice < mPrice) {
+            return ContextCompat.getColor(mContext, R.color.colorPositiveChange);
+        }
+        if (mPreviousPrice > mPrice) {
+            return ContextCompat.getColor(mContext, R.color.colorNegativeChange);
+        }
+        return ContextCompat.getColor(mContext, R.color.colorWhite);
+    }
+
+    @Bindable
+    public int getPriceColorDetail() {
+        if (mPreviousPrice < mPrice) {
+            return ContextCompat.getColor(mContext, R.color.colorPositiveChange);
+        }
+        if (mPreviousPrice > mPrice) {
+            return ContextCompat.getColor(mContext, R.color.colorNegativeChange);
+        }
+        return ContextCompat.getColor(mContext, R.color.colorLightGrey);
+    }
+
+    @Bindable
+    public String getPriceChangeSymbol() {
+        if (mPreviousPrice < mPrice) {
+            return "↑";
+        }
+        if (mPreviousPrice > mPrice) {
+            return "↓";
+        }
+        return " ";
+    }
+
+    public void setPreviousPrice(double previousPrice) {
+        mPreviousPrice = previousPrice;
+        notifyPropertyChanged(BR.priceColor);
+        notifyPropertyChanged(BR.priceColorDetail);
+        notifyPropertyChanged(BR.priceChangeSymbol);
     }
 }

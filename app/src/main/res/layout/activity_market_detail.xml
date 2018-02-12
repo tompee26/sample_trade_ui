@@ -98,24 +98,35 @@
                     android:gravity="center"
                     android:text="@{marketItem.priceText}"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@color/colorLightGrey"
+                    android:textColor="@{marketItem.priceColorDetail}"
                     android:textSize="28sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/priceSymbol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{marketItem.priceChangeSymbol}"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@{marketItem.priceColor}"
+                    app:layout_constraintBottom_toBottomOf="@id/price"
+                    app:layout_constraintStart_toEndOf="@id/price"
+                    app:layout_constraintTop_toTopOf="@id/price" />
 
                 <TextView
                     android:id="@+id/priceUsd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:gravity="center"
                     android:text="@{String.format(@string/market_item_price_usd_format, marketItem.priceUsd)}"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/colorWhite"
                     app:layout_constraintBottom_toBottomOf="@+id/price"
-                    app:layout_constraintStart_toEndOf="@+id/price"
+                    app:layout_constraintStart_toEndOf="@+id/priceSymbol"
                     app:layout_constraintTop_toTopOf="@+id/price" />
 
                 <TextView
@@ -217,6 +228,37 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/vol">
 
+                    <LinearLayout
+                        android:id="@+id/full"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/border_full"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="16dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/market_detail_full_label"
+                            android:textColor="@color/colorWhite" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginStart="4dp"
+                            android:background="@drawable/ic_market_detail_full" />
+
+                    </LinearLayout>
+
                     <Button
                         android:id="@+id/time"
                         style="?android:attr/borderlessButtonStyle"
@@ -296,10 +338,10 @@
                     android:layout_marginBottom="4dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/orderBook"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintTop_toBottomOf="@id/orderBook" />
 
             </android.support.constraint.ConstraintLayout>
 

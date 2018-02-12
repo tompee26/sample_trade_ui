@@ -30,4 +30,5 @@
     <string name="market_detail_sell_label">Sell</string>
     <string name="market_detail_bid_label">Bid</string>
     <string name="market_detail_ask_label">Ask</string>
+    <string name="market_detail_full_label">Full</string>
 </resources>
