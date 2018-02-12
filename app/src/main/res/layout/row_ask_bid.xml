@@ -12,7 +12,8 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="20dp">
+        android:layout_height="20dp"
+        android:background="@color/colorOrderAskBg">
 
         <TextView
             android:id="@+id/askCount"

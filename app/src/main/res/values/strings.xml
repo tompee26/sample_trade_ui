@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">Binance</string>
 
-    <string name="market_tab_title">Market</string>
+    <string name="market_tab_title">Markets</string>
+    <string name="trades_tab_title">Trades</string>
+    <string name="funds_tab_title">Funds</string>
+    <string name="account_tab_title">Account</string>
+
     <string name="market_tab_favorite">Favorites</string>
     <string name="market_tab_bnb">BNB</string>
     <string name="market_tab_btc">BTC</string>
