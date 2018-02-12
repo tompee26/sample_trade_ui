@@ -127,14 +127,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="152dp" />
+            app:layout_constraintGuide_percent="0.35" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="300dp" />
+            app:layout_constraintGuide_percent="0.7" />
 
         <TextView
             android:id="@+id/ltp"
