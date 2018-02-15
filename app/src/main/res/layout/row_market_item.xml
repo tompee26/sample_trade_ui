@@ -63,9 +63,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="@{marketItem.priceText}"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@{marketItem.priceColor}"
+            app:doubleText="@{marketItem.price}"
+            app:priceChangeTextColor="@{marketItem.priceChange}"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -90,18 +90,18 @@
             app:layout_constraintGuide_percent="0.7" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/change"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:background="@{marketItem.changeColor}"
             android:gravity="center"
-            android:text="@{String.format(@string/market_item_change_format, marketItem.changeText)}"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/colorWhite"
+            app:changeText="@{marketItem.change}"
+            app:isIncreasingBackground="@{marketItem.change > 0}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline4"

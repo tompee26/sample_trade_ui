@@ -10,7 +10,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.tompee.binance.controller.adapter.MarketItemAdapter;
 import com.tompee.binance.controller.fragment.OrderBookFragment;
 import com.tompee.binance.databinding.ActivityMarketDetailBinding;
 import com.tompee.binance.model.MarketItem;

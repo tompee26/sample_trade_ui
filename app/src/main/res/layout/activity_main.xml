@@ -5,9 +5,11 @@
 
     <data>
 
+        <import type="com.tompee.binance.model.SortManager.SortType" />
+
         <variable
-            name="sort"
-            type="com.tompee.binance.model.SortInfo" />
+            name="sortManager"
+            type="com.tompee.binance.model.SortManager" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -117,9 +119,59 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="@{sort.pairText}"
-            android:textColor="@{sort.pairTextColorId}"
+            android:text="@string/market_pair"
+            android:textColor="@drawable/selector_sort_button_text"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tab_layout_main" />
+
+        <TextView
+            android:id="@+id/pairSymbol"
+            style="@style/MarketSortTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/increase"
+            android:textColor="@color/colorAccent"
+            app:isVisible="@{sortManager.sortType == SortType.PAIR}"
+            app:layout_constraintStart_toEndOf="@id/pair"
+            app:layout_constraintTop_toBottomOf="@+id/tab_layout_main" />
+
+        <TextView
+            android:id="@+id/pairVolDiv"
+            style="@style/MarketSortTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/market_pair_vol_div"
+            android:textColor="@drawable/selector_sort_button_text"
+            app:layout_constraintStart_toEndOf="@id/pairSymbol"
+            app:layout_constraintTop_toBottomOf="@+id/tab_layout_main" />
+
+        <TextView
+            android:id="@+id/vol"
+            style="@style/MarketSortTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/market_vol"
+            android:textColor="@drawable/selector_sort_button_text"
+            app:layout_constraintStart_toEndOf="@+id/pairVolDiv"
+            app:layout_constraintTop_toBottomOf="@+id/tab_layout_main" />
+
+        <TextView
+            android:id="@+id/volSymbol"
+            style="@style/MarketSortTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/decrease"
+            android:textColor="@color/colorAccent"
+            app:isVisible="@{sortManager.sortType == SortType.VOL}"
+            app:layout_constraintStart_toEndOf="@id/vol"
             app:layout_constraintTop_toBottomOf="@+id/tab_layout_main" />
 
         <android.support.constraint.Guideline
@@ -143,9 +195,22 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="@{sort.lastPriceText}"
-            android:textColor="@{sort.lastPriceTextColorId}"
+            android:text="@string/market_last_price"
+            android:textColor="@drawable/selector_sort_button_text"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toBottomOf="@+id/tab_layout_main" />
+
+        <TextView
+            android:id="@+id/ltpSymbol"
+            style="@style/MarketSortTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/colorAccent"
+            app:isIncreasingText="@{sortManager.sortType == SortType.LAST_PRICE_ASCENDING}"
+            app:isVisible="@{sortManager.sortType == SortType.LAST_PRICE_ASCENDING || sortManager.sortType == SortType.LAST_PRICE_DESCENDING}"
+            app:layout_constraintStart_toEndOf="@id/ltp"
             app:layout_constraintTop_toBottomOf="@+id/tab_layout_main" />
 
         <TextView
@@ -156,21 +221,23 @@
             android:layout_marginEnd="16dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="@{sort.percentChangedText}"
-            android:textColor="@{sort.percentChangedColorId}"
+            android:text="@string/market_pair_24h_change"
+            android:textColor="@drawable/selector_sort_button_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline4"
             app:layout_constraintTop_toBottomOf="@+id/tab_layout_main" />
 
         <TextView
-            android:id="@+id/vol"
+            android:id="@+id/changeSymbol"
             style="@style/MarketSortTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
-            android:text="@{sort.volText}"
-            android:textColor="@{sort.volTextColorId}"
-            app:layout_constraintStart_toEndOf="@+id/pair"
+            android:textColor="@color/colorAccent"
+            app:isIncreasingText="@{sortManager.sortType == SortType.PERCENT_CHANGE_ASCENDING}"
+            app:isVisible="@{sortManager.sortType == SortType.PERCENT_CHANGE_ASCENDING || sortManager.sortType == SortType.PERCENT_CHANGE_DESCENDING}"
+            app:layout_constraintStart_toEndOf="@id/percentChange"
             app:layout_constraintTop_toBottomOf="@+id/tab_layout_main" />
 
     </android.support.constraint.ConstraintLayout>

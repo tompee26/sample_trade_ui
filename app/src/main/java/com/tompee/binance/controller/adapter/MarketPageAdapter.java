@@ -72,11 +72,24 @@ public class MarketPageAdapter extends FragmentStatePagerAdapter {
         return PAGE_COUNT;
     }
 
-    public void sort() {
-        mFavorite.sort();
-        mBnb.sort();
-        mBtc.sort();
-        mEth.sort();
-        mUsdt.sort();
+    public void sort(int position) {
+
+        switch (position) {
+            case 0:
+                mFavorite.sort();
+                break;
+            case 1:
+                mBnb.sort();
+                break;
+            case 2:
+                mBtc.sort();
+                break;
+            case 3:
+                mEth.sort();
+                break;
+            case 4:
+                mUsdt.sort();
+                break;
+        }
     }
 }

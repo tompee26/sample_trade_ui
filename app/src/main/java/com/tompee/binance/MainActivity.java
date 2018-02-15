@@ -4,16 +4,16 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.tompee.binance.controller.adapter.MarketPageAdapter;
 import com.tompee.binance.databinding.ActivityMainBinding;
 import com.tompee.binance.model.MarketItem;
 import com.tompee.binance.model.OrderBook;
-import com.tompee.binance.model.SortInfo;
-import com.tompee.binance.services.SortManager;
+import com.tompee.binance.model.SortManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,15 +21,13 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-public class MainActivity extends FragmentActivity implements View.OnClickListener {
+public class MainActivity extends FragmentActivity implements View.OnClickListener,
+        ViewPager.OnPageChangeListener {
     public static final List<MarketItem> tokenListFavorite = new ArrayList<>();
     public static final List<MarketItem> tokenListBnb = new ArrayList<>();
     public static final List<MarketItem> tokenListBtc = new ArrayList<>();
@@ -38,7 +36,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     private ActivityMainBinding mBinding;
     private SortManager mSortManager;
-    private SortInfo mSortInfo;
     private MarketPageAdapter mMarketPageAdapter;
 
     @Override
@@ -48,17 +45,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mSortManager = new SortManager();
         mBinding = DataBindingUtil.setContentView(this,
                 R.layout.activity_main);
+        mBinding.setSortManager(mSortManager);
         mBinding.tabLayoutMain.setupWithViewPager(mBinding.viewPager);
         mMarketPageAdapter = new MarketPageAdapter(this, getSupportFragmentManager());
+        mBinding.viewPager.addOnPageChangeListener(this);
         mBinding.viewPager.setOffscreenPageLimit(mMarketPageAdapter.getCount());
         LoadDataTask task = new LoadDataTask(this);
         task.execute();
 
-        mSortInfo = new SortInfo();
-        setSortInfo();
-        sortList();
-        mBinding.setSort(mSortInfo);
-
+        onClick(mBinding.vol);
         mBinding.pair.setOnClickListener(this);
         mBinding.vol.setOnClickListener(this);
         mBinding.ltp.setOnClickListener(this);
@@ -70,137 +65,112 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         switch (v.getId()) {
             case R.id.pair:
                 mSortManager.changeToPairVol(SortManager.SortType.PAIR);
+                mBinding.pair.setSelected(mSortManager.getSortType() == SortManager.SortType.PAIR);
+                mBinding.vol.setSelected(mSortManager.getSortType() == SortManager.SortType.VOL);
+                mBinding.ltp.setSelected(false);
+                mBinding.percentChange.setSelected(false);
                 break;
             case R.id.vol:
                 mSortManager.changeToPairVol(SortManager.SortType.VOL);
+                mBinding.pair.setSelected(mSortManager.getSortType() == SortManager.SortType.PAIR);
+                mBinding.vol.setSelected(mSortManager.getSortType() == SortManager.SortType.VOL);
+                mBinding.ltp.setSelected(false);
+                mBinding.percentChange.setSelected(false);
                 break;
             case R.id.ltp:
                 mSortManager.changeToLastPrice();
+                mBinding.pair.setSelected(false);
+                mBinding.vol.setSelected(false);
+                mBinding.ltp.setSelected(true);
+                mBinding.percentChange.setSelected(false);
                 break;
             case R.id.percentChange:
                 mSortManager.changeToPercentChanged();
+                mBinding.pair.setSelected(false);
+                mBinding.vol.setSelected(false);
+                mBinding.ltp.setSelected(false);
+                mBinding.percentChange.setSelected(true);
                 break;
         }
-        setSortInfo();
-        sortList();
+        onPageSelected(mBinding.viewPager.getCurrentItem());
     }
 
-    private void sortList() {
-        switch (mSortManager.getSortType()) {
-            case PAIR:
-                Collections.sort(tokenListFavorite,  (l1, l2) -> l1.getTokenName().compareTo(l2.getTokenName()));
-                Collections.sort(tokenListBnb,  (l1, l2) -> l1.getTokenName().compareTo(l2.getTokenName()));
-                Collections.sort(tokenListBtc,  (l1, l2) -> l1.getTokenName().compareTo(l2.getTokenName()));
-                Collections.sort(tokenListEth,  (l1, l2) -> l1.getTokenName().compareTo(l2.getTokenName()));
-                Collections.sort(tokenListUsdt,  (l1, l2) -> l1.getTokenName().compareTo(l2.getTokenName()));
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        SortTask task;
+        switch (position) {
+            case 0:
+                task = new SortTask(tokenListFavorite, position);
                 break;
-            case VOL:
-                Collections.sort(tokenListFavorite,  (l1, l2) -> -compareDouble(l1.getVolume(), l2.getVolume()));
-                Collections.sort(tokenListBnb,  (l1, l2) -> -compareDouble(l1.getVolume(), l2.getVolume()));
-                Collections.sort(tokenListBtc,  (l1, l2) -> -compareDouble(l1.getVolume(), l2.getVolume()));
-                Collections.sort(tokenListEth,  (l1, l2) -> -compareDouble(l1.getVolume(), l2.getVolume()));
-                Collections.sort(tokenListUsdt,  (l1, l2) -> -compareDouble(l1.getVolume(), l2.getVolume()));
+            case 1:
+                task = new SortTask(tokenListBnb, position);
                 break;
-            case LAST_PRICE_ASCENDING:
-                Collections.sort(tokenListFavorite,  (l1, l2) -> compareDouble(l1.getPrice(), l2.getPrice()));
-                Collections.sort(tokenListBnb,  (l1, l2) -> compareDouble(l1.getPrice(), l2.getPrice()));
-                Collections.sort(tokenListBtc,  (l1, l2) -> compareDouble(l1.getPrice(), l2.getPrice()));
-                Collections.sort(tokenListEth,  (l1, l2) -> compareDouble(l1.getPrice(), l2.getPrice()));
-                Collections.sort(tokenListUsdt,  (l1, l2) -> compareDouble(l1.getPrice(), l2.getPrice()));
+            case 2:
+                task = new SortTask(tokenListBtc, position);
                 break;
-            case LAST_PRICE_DESCENDING:
-                Collections.sort(tokenListFavorite,  (l1, l2) -> -compareDouble(l1.getPrice(), l2.getPrice()));
-                Collections.sort(tokenListBnb,  (l1, l2) -> -compareDouble(l1.getPrice(), l2.getPrice()));
-                Collections.sort(tokenListBtc,  (l1, l2) -> -compareDouble(l1.getPrice(), l2.getPrice()));
-                Collections.sort(tokenListEth,  (l1, l2) -> -compareDouble(l1.getPrice(), l2.getPrice()));
-                Collections.sort(tokenListUsdt,  (l1, l2) -> -compareDouble(l1.getPrice(), l2.getPrice()));
+            case 3:
+                task = new SortTask(tokenListEth, position);
                 break;
-            case PERCENT_CHANGE_ASCENDING:
-                Collections.sort(tokenListFavorite,  (l1, l2) -> compareDouble(l1.getChange(), l2.getChange()));
-                Collections.sort(tokenListBnb,  (l1, l2) -> compareDouble(l1.getChange(), l2.getChange()));
-                Collections.sort(tokenListBtc,  (l1, l2) -> compareDouble(l1.getChange(), l2.getChange()));
-                Collections.sort(tokenListEth,  (l1, l2) -> compareDouble(l1.getChange(), l2.getChange()));
-                Collections.sort(tokenListUsdt,  (l1, l2) -> compareDouble(l1.getChange(), l2.getChange()));
-                break;
-            case PERCENT_CHANGE_DESCENDING:
-                Collections.sort(tokenListFavorite,  (l1, l2) -> -compareDouble(l1.getChange(), l2.getChange()));
-                Collections.sort(tokenListBnb,  (l1, l2) -> -compareDouble(l1.getChange(), l2.getChange()));
-                Collections.sort(tokenListBtc,  (l1, l2) -> -compareDouble(l1.getChange(), l2.getChange()));
-                Collections.sort(tokenListEth,  (l1, l2) -> -compareDouble(l1.getChange(), l2.getChange()));
-                Collections.sort(tokenListUsdt,  (l1, l2) -> -compareDouble(l1.getChange(), l2.getChange()));
+            default:
+                task = new SortTask(tokenListUsdt, position);
                 break;
         }
-        mMarketPageAdapter.sort();
+        task.execute();
     }
 
-    private int compareDouble(double d1, double d2) {
-        if (d1 > d2) return 1;
-        if (d1 < d2) return -1;
-        return 0;
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 
-    private void setSortInfo() {
-        switch (mSortManager.getSortType()) {
-            case PAIR:
-                mSortInfo.setPairText(getString(R.string.market_pair) + "↑");
-                mSortInfo.setPairTextColorId(ContextCompat.getColor(this, R.color.colorAccent));
-                mSortInfo.setVolText(" / " + getString(R.string.market_vol));
-                mSortInfo.setVolTextColorId(ContextCompat.getColor(this, R.color.colorLightGrey));
-                mSortInfo.setLastPriceText(getString(R.string.market_last_price));
-                mSortInfo.setLastPriceTextColorId(ContextCompat.getColor(this, R.color.colorLightGrey));
-                mSortInfo.setPercentChangedText(getString(R.string.market_pair_24h_change));
-                mSortInfo.setPercentChangedColorId(ContextCompat.getColor(this, R.color.colorLightGrey));
-                break;
-            case VOL:
-                mSortInfo.setPairText(getString(R.string.market_pair) + " / ");
-                mSortInfo.setPairTextColorId(ContextCompat.getColor(this, R.color.colorLightGrey));
-                mSortInfo.setVolText(getString(R.string.market_vol) + "↓");
-                mSortInfo.setVolTextColorId(ContextCompat.getColor(this, R.color.colorAccent));
-                mSortInfo.setLastPriceText(getString(R.string.market_last_price));
-                mSortInfo.setLastPriceTextColorId(ContextCompat.getColor(this, R.color.colorLightGrey));
-                mSortInfo.setPercentChangedText(getString(R.string.market_pair_24h_change));
-                mSortInfo.setPercentChangedColorId(ContextCompat.getColor(this, R.color.colorLightGrey));
-                break;
-            case LAST_PRICE_ASCENDING:
-                mSortInfo.setPairText(getString(R.string.market_pair) + " / ");
-                mSortInfo.setPairTextColorId(ContextCompat.getColor(this, R.color.colorLightGrey));
-                mSortInfo.setVolText(getString(R.string.market_vol));
-                mSortInfo.setVolTextColorId(ContextCompat.getColor(this, R.color.colorLightGrey));
-                mSortInfo.setLastPriceText(getString(R.string.market_last_price) + "↑");
-                mSortInfo.setLastPriceTextColorId(ContextCompat.getColor(this, R.color.colorAccent));
-                mSortInfo.setPercentChangedText(getString(R.string.market_pair_24h_change));
-                mSortInfo.setPercentChangedColorId(ContextCompat.getColor(this, R.color.colorLightGrey));
-                break;
-            case LAST_PRICE_DESCENDING:
-                mSortInfo.setPairText(getString(R.string.market_pair) + " / ");
-                mSortInfo.setPairTextColorId(ContextCompat.getColor(this, R.color.colorLightGrey));
-                mSortInfo.setVolText(getString(R.string.market_vol));
-                mSortInfo.setVolTextColorId(ContextCompat.getColor(this, R.color.colorLightGrey));
-                mSortInfo.setLastPriceText(getString(R.string.market_last_price) + "↓");
-                mSortInfo.setLastPriceTextColorId(ContextCompat.getColor(this, R.color.colorAccent));
-                mSortInfo.setPercentChangedText(getString(R.string.market_pair_24h_change));
-                mSortInfo.setPercentChangedColorId(ContextCompat.getColor(this, R.color.colorLightGrey));
-                break;
-            case PERCENT_CHANGE_ASCENDING:
-                mSortInfo.setPairText(getString(R.string.market_pair) + " / ");
-                mSortInfo.setPairTextColorId(ContextCompat.getColor(this, R.color.colorLightGrey));
-                mSortInfo.setVolText(getString(R.string.market_vol));
-                mSortInfo.setVolTextColorId(ContextCompat.getColor(this, R.color.colorLightGrey));
-                mSortInfo.setLastPriceText(getString(R.string.market_last_price));
-                mSortInfo.setLastPriceTextColorId(ContextCompat.getColor(this, R.color.colorLightGrey));
-                mSortInfo.setPercentChangedText(getString(R.string.market_pair_24h_change) + "↑");
-                mSortInfo.setPercentChangedColorId(ContextCompat.getColor(this, R.color.colorAccent));
-                break;
-            case PERCENT_CHANGE_DESCENDING:
-                mSortInfo.setPairText(getString(R.string.market_pair) + " / ");
-                mSortInfo.setPairTextColorId(ContextCompat.getColor(this, R.color.colorLightGrey));
-                mSortInfo.setVolText(getString(R.string.market_vol));
-                mSortInfo.setVolTextColorId(ContextCompat.getColor(this, R.color.colorLightGrey));
-                mSortInfo.setLastPriceText(getString(R.string.market_last_price));
-                mSortInfo.setLastPriceTextColorId(ContextCompat.getColor(this, R.color.colorLightGrey));
-                mSortInfo.setPercentChangedText(getString(R.string.market_pair_24h_change) + "↓");
-                mSortInfo.setPercentChangedColorId(ContextCompat.getColor(this, R.color.colorAccent));
-                break;
+    class SortTask extends AsyncTask<Void, Void, Void> {
+        private final List<MarketItem> mMarketItemList;
+        private final int mPosition;
+
+        SortTask(List<MarketItem> marketItemList, int position) {
+            mMarketItemList = marketItemList;
+            mPosition = position;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            switch (mSortManager.getSortType()) {
+                case PAIR:
+                    Collections.sort(mMarketItemList, (l1, l2) -> l1.getTokenName().compareTo(l2.getTokenName()));
+                    break;
+                case VOL:
+                    Collections.sort(mMarketItemList, (l1, l2) -> -compareDouble(l1.getVolume(), l2.getVolume()));
+                    break;
+                case LAST_PRICE_ASCENDING:
+                    Collections.sort(mMarketItemList, (l1, l2) -> compareDouble(l1.getPrice(), l2.getPrice()));
+                    break;
+                case LAST_PRICE_DESCENDING:
+                    Collections.sort(mMarketItemList, (l1, l2) -> -compareDouble(l1.getPrice(), l2.getPrice()));
+                    break;
+                case PERCENT_CHANGE_ASCENDING:
+                    Collections.sort(mMarketItemList, (l1, l2) -> compareDouble(l1.getChange(), l2.getChange()));
+                    break;
+                case PERCENT_CHANGE_DESCENDING:
+                    Collections.sort(mMarketItemList, (l1, l2) -> -compareDouble(l1.getChange(), l2.getChange()));
+                    break;
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            new Handler().postDelayed(() -> mMarketPageAdapter.sort(mPosition), 200);
+        }
+
+        private int compareDouble(double d1, double d2) {
+            if (d1 > d2) return 1;
+            if (d1 < d2) return -1;
+            return 0;
         }
     }
 
@@ -240,7 +210,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                         JSONObject info = tokenArray.getJSONObject(tokenIndex).getJSONObject("info");
                         marketItem.setVolume(info.getDouble("volume"));
                         marketItem.setPrice(info.getDouble("price"));
-                        marketItem.setPreviousPrice(info.getDouble("previousPrice"));
                         marketItem.setPriceUsd(info.getDouble("priceUSD"));
                         marketItem.setPriceChange(info.getDouble("priceChange"));
                         marketItem.setChange(info.getDouble("priceChangePercent"));

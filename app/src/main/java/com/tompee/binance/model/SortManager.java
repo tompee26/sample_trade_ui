@@ -1,6 +1,11 @@
-package com.tompee.binance.services;
+package com.tompee.binance.model;
 
-public class SortManager {
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+
+import com.tompee.binance.BR;
+
+public class SortManager extends BaseObservable {
 
     public enum SortType {
         PAIR,
@@ -11,8 +16,9 @@ public class SortManager {
         PERCENT_CHANGE_DESCENDING
     }
 
-    private SortType mSortType = SortType.VOL;
+    private SortType mSortType = SortType.PAIR;
 
+    @Bindable
     public SortType getSortType() {
         return mSortType;
     }
@@ -20,24 +26,28 @@ public class SortManager {
     public void changeToPairVol(SortType sortType) {
         if (mSortType == SortType.PAIR || mSortType == SortType.VOL) {
             mSortType = mSortType == SortType.PAIR ? SortType.VOL : SortType.PAIR;
-            return;
+        } else {
+            mSortType = sortType;
         }
-        mSortType = sortType;
+        notifyPropertyChanged(BR.sortType);
     }
 
     public void changeToLastPrice() {
         if (mSortType == SortType.LAST_PRICE_ASCENDING) {
             mSortType = SortType.LAST_PRICE_DESCENDING;
-            return;
         }
-        mSortType = SortType.LAST_PRICE_ASCENDING;
+        else {
+            mSortType = SortType.LAST_PRICE_ASCENDING;
+        }
+        notifyPropertyChanged(BR.sortType);
     }
 
     public void changeToPercentChanged() {
         if (mSortType == SortType.PERCENT_CHANGE_ASCENDING) {
             mSortType = SortType.PERCENT_CHANGE_DESCENDING;
-            return;
+        } else {
+            mSortType = SortType.PERCENT_CHANGE_ASCENDING;
         }
-        mSortType = SortType.PERCENT_CHANGE_ASCENDING;
+        notifyPropertyChanged(BR.sortType);
     }
 }

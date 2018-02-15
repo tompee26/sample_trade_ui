@@ -96,21 +96,21 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:gravity="center"
-                    android:text="@{marketItem.priceText}"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@{marketItem.priceColorDetail}"
                     android:textSize="28sp"
+                    app:doubleText="@{marketItem.price}"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:priceChangeTextColorDetail="@{marketItem.priceChange}" />
 
                 <TextView
                     android:id="@+id/priceSymbol"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@{marketItem.priceChangeSymbol}"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@{marketItem.priceColor}"
+                    app:isIncreasingText="@{marketItem.priceChange > 0}"
+                    app:isIncreasingTextColor="@{marketItem.priceChange > 0}"
                     app:layout_constraintBottom_toBottomOf="@id/price"
                     app:layout_constraintStart_toEndOf="@id/price"
                     app:layout_constraintTop_toTopOf="@id/price" />
@@ -135,9 +135,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
-                    android:text="@{marketItem.priceChangeText}"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@{marketItem.priceChangeColor}"
+                    app:doubleText="@{marketItem.priceChange}"
+                    app:isIncreasingTextColor="@{marketItem.priceChange >= 0}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/price" />
 
@@ -146,9 +146,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="@{String.format(@string/market_item_change_format, marketItem.changeText)}"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@{marketItem.changeColor}"
+                    app:changeText="@{marketItem.change}"
+                    app:isIncreasingTextColor="@{marketItem.change >= 0}"
                     app:layout_constraintBottom_toBottomOf="@+id/priceChange"
                     app:layout_constraintStart_toEndOf="@+id/priceChange"
                     app:layout_constraintTop_toTopOf="@+id/priceChange" />
@@ -158,9 +158,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
-                    android:text="@{marketItem.priceLowText}"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/colorWhite"
+                    app:doubleText="@{marketItem.priceLow}"
                     app:layout_constraintBottom_toBottomOf="@+id/change"
                     app:layout_constraintEnd_toEndOf="parent" />
 
@@ -193,9 +193,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
-                    android:text="@{marketItem.priceHighText}"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/colorWhite"
+                    app:doubleText="@{marketItem.priceLow}"
                     app:layout_constraintBottom_toBottomOf="@+id/vol"
                     app:layout_constraintEnd_toEndOf="parent" />
 
