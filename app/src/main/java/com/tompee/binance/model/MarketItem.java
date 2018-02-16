@@ -3,6 +3,7 @@ package com.tompee.binance.model;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.util.Log;
 
 import com.tompee.binance.BR;
 
@@ -13,7 +14,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class MarketItem extends BaseObservable {
-    private final Context mContext;
     private final String mTokenName;
     private final String mRefTokenName;
     private final List<OrderBook> mOrderBook;
@@ -22,20 +22,14 @@ public class MarketItem extends BaseObservable {
     private double mPriceUsd;
     private double mChange;
     private double mPriceChange;
+    private double mPriceChangeIndicator;
     private double mPriceLow;
     private double mPriceHigh;
 
-    public MarketItem(Context context, String tokenName, String refTokenName) {
-        mContext = context;
+    public MarketItem(String tokenName, String refTokenName) {
         mTokenName = tokenName;
         mRefTokenName = refTokenName;
         mOrderBook = new ArrayList<>();
-    }
-
-    private static String getStringFromDouble(double value) {
-        DecimalFormat df = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
-        df.setMaximumFractionDigits(340);
-        return df.format(value);
     }
 
     @Bindable
@@ -47,6 +41,7 @@ public class MarketItem extends BaseObservable {
     public String getRefTokenName() {
         return mRefTokenName;
     }
+
 
     public double getVolume() {
         return mVolume;
@@ -96,10 +91,11 @@ public class MarketItem extends BaseObservable {
 
     @Bindable
     public double getPriceChange() {
-        return mPriceChange;
+        return mPriceChangeIndicator;
     }
 
     public void setPriceChange(double priceChange) {
+        mPriceChangeIndicator = mPriceChange - priceChange;
         mPriceChange = priceChange;
         notifyPropertyChanged(BR.priceChange);
     }

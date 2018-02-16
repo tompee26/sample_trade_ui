@@ -195,7 +195,7 @@
                     android:layout_marginEnd="16dp"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/colorWhite"
-                    app:doubleText="@{marketItem.priceLow}"
+                    app:doubleText="@{marketItem.priceHigh}"
                     app:layout_constraintBottom_toBottomOf="@+id/vol"
                     app:layout_constraintEnd_toEndOf="parent" />
 

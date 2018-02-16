@@ -11,28 +11,26 @@ import android.view.View;
 
 import com.tompee.binance.controller.adapter.MarketPageAdapter;
 import com.tompee.binance.databinding.ActivityMainBinding;
+import com.tompee.binance.model.AllMarketTickersEvent;
 import com.tompee.binance.model.MarketItem;
-import com.tompee.binance.model.OrderBook;
 import com.tompee.binance.model.SortManager;
+import com.tompee.binance.services.api.BinanceWrapper;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
+import java.util.Map;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener,
-        ViewPager.OnPageChangeListener {
+        ViewPager.OnPageChangeListener, BinanceWrapper.MarketUpdateListener {
     public static final List<MarketItem> tokenListFavorite = new ArrayList<>();
     public static final List<MarketItem> tokenListBnb = new ArrayList<>();
     public static final List<MarketItem> tokenListBtc = new ArrayList<>();
     public static final List<MarketItem> tokenListEth = new ArrayList<>();
     public static final List<MarketItem> tokenListUsdt = new ArrayList<>();
+
+    private static final Map<String, MarketItem> mTokenMap = new HashMap<>();
 
     private ActivityMainBinding mBinding;
     private SortManager mSortManager;
@@ -58,6 +56,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mBinding.vol.setOnClickListener(this);
         mBinding.ltp.setOnClickListener(this);
         mBinding.percentChange.setOnClickListener(this);
+
+        BinanceWrapper.getInstance(this).setMarketUpdateHandler(this);
     }
 
     @Override
@@ -128,6 +128,18 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     }
 
+    @Override
+    public void onUpdate(AllMarketTickersEvent event) {
+        MarketItem item = mTokenMap.get(event.getSymbol());
+        if (item != null) {
+            item.setChange(event.getPriceChangePercent());
+            item.setPriceLow(event.getLowPrice());
+            item.setPriceHigh(event.getHighPrice());
+            item.setPriceChange(event.getPriceChange());
+        }
+        onPageSelected(mBinding.viewPager.getCurrentItem());
+    }
+
     class SortTask extends AsyncTask<Void, Void, Void> {
         private final List<MarketItem> mMarketItemList;
         private final int mPosition;
@@ -174,9 +186,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         }
     }
 
-    /* For dummy data generation only */
     class LoadDataTask extends AsyncTask<Void, Void, Void> {
-
         private final Context mContext;
 
         LoadDataTask(Context context) {
@@ -185,75 +195,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         @Override
         protected Void doInBackground(Void... voids) {
-            String json;
-            try {
-                InputStream is = getAssets().open("data.json");
-                int size = is.available();
-                byte[] buffer = new byte[size];
-                is.read(buffer);
-                is.close();
-                json = new String(buffer, "UTF-8");
-            } catch (IOException ex) {
-                ex.printStackTrace();
-                return null;
-            }
-
-            try {
-                JSONObject obj = new JSONObject(json);
-                JSONArray refArray = obj.getJSONArray("data");
-                for (int index = 0; index < refArray.length(); index++) {
-                    String refToken = refArray.getJSONObject(index).getString("refToken");
-                    JSONArray tokenArray = refArray.getJSONObject(index).getJSONArray("token");
-                    for (int tokenIndex = 0; tokenIndex < tokenArray.length(); tokenIndex++) {
-                        String tokenName = tokenArray.getJSONObject(tokenIndex).getString("name");
-                        MarketItem marketItem = new MarketItem(mContext, tokenName, refToken);
-                        JSONObject info = tokenArray.getJSONObject(tokenIndex).getJSONObject("info");
-                        marketItem.setVolume(info.getDouble("volume"));
-                        marketItem.setPrice(info.getDouble("price"));
-                        marketItem.setPriceUsd(info.getDouble("priceUSD"));
-                        marketItem.setPriceChange(info.getDouble("priceChange"));
-                        marketItem.setChange(info.getDouble("priceChangePercent"));
-                        marketItem.setPriceLow(info.getDouble("low"));
-                        marketItem.setPriceHigh(info.getDouble("high"));
-
-                        for (int orderBookIndex = 0; orderBookIndex < 15; orderBookIndex++) {
-                            OrderBook orderBook = new OrderBook();
-                            orderBook.setBidCount(getRandomAmount());
-                            orderBook.setBidAmount(marketItem.getPrice() * (.97 - orderBookIndex * 0.01));
-                            orderBook.setAskCount(getRandomAmount());
-                            orderBook.setAskAmount(marketItem.getPrice() * (.103 + orderBookIndex * 0.01));
-                            marketItem.getOrderBook().add(orderBook);
-                        }
-
-                        switch (refToken) {
-                            case "BNB":
-                                tokenListBnb.add(marketItem);
-                                break;
-                            case "BTC":
-                                tokenListBtc.add(marketItem);
-                                break;
-                            case "ETH":
-                                tokenListEth.add(marketItem);
-                                break;
-                            case "USDT":
-                                tokenListUsdt.add(marketItem);
-                                break;
-                        }
-                    }
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            BinanceWrapper.getInstance(mContext).getAllPrices(tokenListBnb, tokenListBtc, tokenListEth,
+                    tokenListUsdt, mTokenMap);
+            publishProgress();
+            BinanceWrapper.getInstance(mContext).getStats(mTokenMap);
             return null;
         }
 
-        private int getRandomAmount() {
-            Random rand = new Random();
-            return (int) (Math.abs(rand.nextGaussian()) * 10000);
-        }
-
         @Override
-        protected void onPostExecute(Void aVoid) {
+        protected void onProgressUpdate(Void... values) {
             mBinding.viewPager.setAdapter(mMarketPageAdapter);
         }
     }

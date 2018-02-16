@@ -77,9 +77,18 @@ public class BindingAdapterUtils {
         view.setText(getStringFromDouble(input));
     }
 
+    @BindingAdapter({"changePercent"})
+    public static void setPercentDoubleText(TextView view, double input) {
+        double value = Math.round(input * 1000.0) / 1000.0;
+        DecimalFormat df = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
+        df.setMaximumFractionDigits(2);
+        df.setMinimumFractionDigits(2);
+        String text = input >= 0 ? "+" + df.format(value) : df.format(value);
+        view.setText(String.format(view.getContext().getString(R.string.market_item_change_format), text));
+    }
+
     @BindingAdapter({"changeText"})
     public static void setChangeText(TextView view, double input) {
-        view.setText(getStringFromDouble(input));
         Context context = view.getContext();
         String text = input >= 0 ? "+" + input : String.valueOf(input);
         view.setText(String.format(context.getString(R.string.market_item_change_format), text));
@@ -88,7 +97,7 @@ public class BindingAdapterUtils {
 
     private static String getStringFromDouble(double value) {
         DecimalFormat df = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
-        df.setMaximumFractionDigits(340);
+        df.setMaximumFractionDigits(8);
         return df.format(value);
     }
 }

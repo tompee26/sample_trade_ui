@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Binance</string>
+    <string name="binance_api_key">miyKqwrlPPdzvXOhuwDZ6JSXkVax6a9UIHECtE3hhXoBENP2SA6K3WUf0FAlOf9X</string>
+    <string name="binance_api_secret">QrTDrZyF1KimlM4fvI1Ksc9wI3A8OvL1vjwtnWI8pLFt8d9CFyBNsSPYrsHiiImK</string>
 
     <string name="market_tab_title">Markets</string>
     <string name="trades_tab_title">Trades</string>
