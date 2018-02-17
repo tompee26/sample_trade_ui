@@ -164,7 +164,10 @@ public class ListFragment extends Fragment implements ItemClickListener.OnItemCl
         if (!isExisting) {
             mTokenList.add(item);
             MainActivity.tokenMap.put(event.getSymbol(), item);
-            mHandler.post(() -> mMarketItemAdapter.notifyDataSetChanged());
+            mHandler.post(() -> {
+                sort();
+                mMarketItemAdapter.notifyDataSetChanged();
+            });
         }
         return true;
     }

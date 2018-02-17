@@ -30,12 +30,7 @@ public class MarketDetailActivity extends AppCompatActivity {
         MarketItem item = MainActivity.tokenMap.get(token);
         mBinding.toolbarView.toolbarText.setText(String.format(getString(R.string.market_detail_toolbar_format),
                 item.getTokenName(), item.getRefTokenName()));
-        mBinding.toolbarView.toolbarHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        mBinding.toolbarView.toolbarHome.setOnClickListener(v -> finish());
         mBinding.setMarketItem(item);
 
         mBinding.orderBook.setOnClickListener(new OrderBookClickListener(this));
