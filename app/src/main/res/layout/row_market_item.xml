@@ -50,12 +50,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
-            android:text="@{String.format(@string/market_item_volume_format, marketItem.volumeText)}"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/colorLightGrey"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/refToken" />
+            app:layout_constraintTop_toBottomOf="@+id/refToken"
+            app:rowVolume="@{marketItem.volume}" />
 
         <TextView
             android:id="@+id/price"
@@ -64,10 +64,10 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            app:doubleText="@{marketItem.price}"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toTopOf="parent"
-            app:priceChangeTextColor="@{marketItem.priceChange}" />
+            app:priceChangeTextColor="@{marketItem.priceChangeIndicator}"
+            app:priceRow="@{marketItem.price}" />
 
         <TextView
             android:id="@+id/priceUsd"
@@ -75,12 +75,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="2dp"
-            android:text="@{String.format(@string/market_item_price_usd_format, marketItem.priceUsd)}"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/colorLightGrey"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
-            app:layout_constraintTop_toBottomOf="@+id/price" />
+            app:layout_constraintTop_toBottomOf="@+id/price"
+            app:usdPrice="@{marketItem.priceUsd}" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline4"
@@ -101,8 +101,8 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/colorWhite"
             android:textSize="14sp"
-            app:isIncreasingBackground="@{marketItem.change >= 0}"
             app:changePercent="@{marketItem.change}"
+            app:isIncreasingBackground="@{marketItem.change >= 0}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline4"

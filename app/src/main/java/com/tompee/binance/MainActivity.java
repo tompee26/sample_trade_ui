@@ -1,6 +1,5 @@
 package com.tompee.binance;
 
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,26 +10,17 @@ import android.view.View;
 
 import com.tompee.binance.controller.adapter.MarketPageAdapter;
 import com.tompee.binance.databinding.ActivityMainBinding;
-import com.tompee.binance.model.AllMarketTickersEvent;
 import com.tompee.binance.model.MarketItem;
 import com.tompee.binance.model.SortManager;
-import com.tompee.binance.services.api.BinanceWrapper;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener,
-        ViewPager.OnPageChangeListener, BinanceWrapper.MarketUpdateListener {
-    public static final List<MarketItem> tokenListFavorite = new ArrayList<>();
-    public static final List<MarketItem> tokenListBnb = new ArrayList<>();
-    public static final List<MarketItem> tokenListBtc = new ArrayList<>();
-    public static final List<MarketItem> tokenListEth = new ArrayList<>();
-    public static final List<MarketItem> tokenListUsdt = new ArrayList<>();
-
-    private static final Map<String, MarketItem> mTokenMap = new HashMap<>();
+        ViewPager.OnPageChangeListener {
+    public static final Map<String, MarketItem> tokenMap = new HashMap<>();
 
     private ActivityMainBinding mBinding;
     private SortManager mSortManager;
@@ -39,7 +29,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mSortManager = new SortManager();
         mBinding = DataBindingUtil.setContentView(this,
                 R.layout.activity_main);
@@ -48,16 +37,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mMarketPageAdapter = new MarketPageAdapter(this, getSupportFragmentManager());
         mBinding.viewPager.addOnPageChangeListener(this);
         mBinding.viewPager.setOffscreenPageLimit(mMarketPageAdapter.getCount());
-        LoadDataTask task = new LoadDataTask(this);
-        task.execute();
+        mBinding.viewPager.setAdapter(mMarketPageAdapter);
 
         onClick(mBinding.vol);
         mBinding.pair.setOnClickListener(this);
         mBinding.vol.setOnClickListener(this);
         mBinding.ltp.setOnClickListener(this);
         mBinding.percentChange.setOnClickListener(this);
-
-        BinanceWrapper.getInstance(this).setMarketUpdateHandler(this);
     }
 
     @Override
@@ -102,42 +88,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     @Override
     public void onPageSelected(int position) {
-        SortTask task;
-        switch (position) {
-            case 0:
-                task = new SortTask(tokenListFavorite, position);
-                break;
-            case 1:
-                task = new SortTask(tokenListBnb, position);
-                break;
-            case 2:
-                task = new SortTask(tokenListBtc, position);
-                break;
-            case 3:
-                task = new SortTask(tokenListEth, position);
-                break;
-            default:
-                task = new SortTask(tokenListUsdt, position);
-                break;
-        }
-        task.execute();
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
 
-    }
-
-    @Override
-    public void onUpdate(AllMarketTickersEvent event) {
-        MarketItem item = mTokenMap.get(event.getSymbol());
-        if (item != null) {
-            item.setChange(event.getPriceChangePercent());
-            item.setPriceLow(event.getLowPrice());
-            item.setPriceHigh(event.getHighPrice());
-            item.setPriceChange(event.getPriceChange());
-        }
-        onPageSelected(mBinding.viewPager.getCurrentItem());
     }
 
     class SortTask extends AsyncTask<Void, Void, Void> {
@@ -183,28 +138,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             if (d1 > d2) return 1;
             if (d1 < d2) return -1;
             return 0;
-        }
-    }
-
-    class LoadDataTask extends AsyncTask<Void, Void, Void> {
-        private final Context mContext;
-
-        LoadDataTask(Context context) {
-            mContext = context;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            BinanceWrapper.getInstance(mContext).getAllPrices(tokenListBnb, tokenListBtc, tokenListEth,
-                    tokenListUsdt, mTokenMap);
-            publishProgress();
-            BinanceWrapper.getInstance(mContext).getStats(mTokenMap);
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            mBinding.viewPager.setAdapter(mMarketPageAdapter);
         }
     }
 }

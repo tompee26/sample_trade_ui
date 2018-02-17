@@ -16,17 +16,17 @@ import com.tompee.binance.controller.adapter.OrderBidAdapter;
 import com.tompee.binance.databinding.FragmentOrderBookBinding;
 import com.tompee.binance.model.OrderBook;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderBookFragment extends Fragment {
     private static final String TOKEN_TAG = "token";
     private static final String POSITION_TAG = "position";
 
-    public static OrderBookFragment getInstance(String token, int position) {
+    public static OrderBookFragment getInstance(String token) {
         OrderBookFragment fragment = new OrderBookFragment();
         Bundle bundle = new Bundle();
         bundle.putString(TOKEN_TAG, token);
-        bundle.putInt(POSITION_TAG, position);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -50,25 +50,7 @@ public class OrderBookFragment extends Fragment {
         binding.askRecyclerView.addItemDecoration(divider);
 
         int position = getArguments().getInt(POSITION_TAG);
-        List<OrderBook> orderBookList;
-        switch (getArguments().getString(TOKEN_TAG)) {
-            case "BNB":
-                orderBookList = MainActivity.tokenListBnb.get(position).getOrderBook();
-                break;
-            case "BTC":
-                orderBookList = MainActivity.tokenListBtc.get(position).getOrderBook();
-                break;
-            case "ETH":
-                orderBookList = MainActivity.tokenListEth.get(position).getOrderBook();
-                break;
-            case "USDT":
-                orderBookList = MainActivity.tokenListUsdt.get(position).getOrderBook();
-                break;
-            default:
-                orderBookList = MainActivity.tokenListFavorite.get(position).getOrderBook();
-                break;
-        }
-
+        List<OrderBook> orderBookList = new ArrayList<>();
         OrderBidAdapter bidAdapter = new OrderBidAdapter(orderBookList, true);
         binding.bidRecyclerView.setAdapter(bidAdapter);
 

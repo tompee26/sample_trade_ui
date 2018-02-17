@@ -77,6 +77,14 @@ public class BindingAdapterUtils {
         view.setText(getStringFromDouble(input));
     }
 
+    @BindingAdapter({"priceRow"})
+    public static void setPriceRowText(TextView view, double input) {
+        DecimalFormat df = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
+        df.setMaximumFractionDigits(8);
+        df.setMinimumFractionDigits(2);
+        view.setText(df.format(input));
+    }
+
     @BindingAdapter({"changePercent"})
     public static void setPercentDoubleText(TextView view, double input) {
         double value = Math.round(input * 1000.0) / 1000.0;
@@ -87,6 +95,15 @@ public class BindingAdapterUtils {
         view.setText(String.format(view.getContext().getString(R.string.market_item_change_format), text));
     }
 
+    @BindingAdapter({"usdPrice"})
+    public static void setUsdPriceText(TextView view, double input) {
+        double value = Math.round(input * 1000.0) / 1000.0;
+        DecimalFormat df = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
+        df.setMaximumFractionDigits(2);
+        df.setMinimumFractionDigits(2);
+        view.setText(String.format(view.getContext().getString(R.string.market_item_price_usd_format), df.format(value)));
+    }
+
     @BindingAdapter({"changeText"})
     public static void setChangeText(TextView view, double input) {
         Context context = view.getContext();
@@ -94,6 +111,24 @@ public class BindingAdapterUtils {
         view.setText(String.format(context.getString(R.string.market_item_change_format), text));
     }
 
+    @BindingAdapter({"rowVolume"})
+    public static void setVolumeRowText(TextView view, double input) {
+        DecimalFormat df = new DecimalFormat("#,###.00", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
+        df.setMaximumFractionDigits(0);
+        view.setText(String.format(view.getContext().getString(R.string.market_item_volume_format), df.format(input)));
+    }
+
+    @BindingAdapter({"rowVolumeDetail", "refToken"})
+    public static void setVolumeRowDetailText(TextView view, double input, String refToken) {
+        DecimalFormat df = new DecimalFormat("#,###.00", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
+        df.setMaximumFractionDigits(2);
+        view.setText(String.format(view.getContext().getString(R.string.market_detail_volume_format), df.format(input), refToken));
+    }
+
+    @BindingAdapter({"priceChangeSymbol"})
+    public static void setPriceSymbolVisibility(View view, double input) {
+        view.setVisibility(input == 0 ? View.INVISIBLE : View.VISIBLE);
+    }
 
     private static String getStringFromDouble(double value) {
         DecimalFormat df = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));

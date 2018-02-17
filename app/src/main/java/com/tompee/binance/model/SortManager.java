@@ -16,7 +16,7 @@ public class SortManager extends BaseObservable {
         PERCENT_CHANGE_DESCENDING
     }
 
-    private SortType mSortType = SortType.PAIR;
+    private SortType mSortType = SortType.VOL;
 
     @Bindable
     public SortType getSortType() {

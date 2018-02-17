@@ -101,7 +101,7 @@
                     app:doubleText="@{marketItem.price}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:priceChangeTextColorDetail="@{marketItem.priceChange}" />
+                    app:priceChangeTextColorDetail="@{marketItem.priceChangeIndicator}" />
 
                 <TextView
                     android:id="@+id/priceSymbol"
@@ -109,11 +109,12 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    app:isIncreasingText="@{marketItem.priceChange > 0}"
-                    app:isIncreasingTextColor="@{marketItem.priceChange > 0}"
+                    app:isIncreasingText="@{marketItem.priceChangeIndicator > 0}"
+                    app:isIncreasingTextColor="@{marketItem.priceChangeIndicator > 0}"
                     app:layout_constraintBottom_toBottomOf="@id/price"
                     app:layout_constraintStart_toEndOf="@id/price"
-                    app:layout_constraintTop_toTopOf="@id/price" />
+                    app:layout_constraintTop_toTopOf="@id/price"
+                    app:priceChangeSymbol="@{marketItem.priceChangeIndicator}" />
 
                 <TextView
                     android:id="@+id/priceUsd"
@@ -122,12 +123,12 @@
                     android:layout_marginBottom="8dp"
                     android:layout_marginTop="8dp"
                     android:gravity="center"
-                    android:text="@{String.format(@string/market_item_price_usd_format, marketItem.priceUsd)}"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/colorWhite"
                     app:layout_constraintBottom_toBottomOf="@+id/price"
                     app:layout_constraintStart_toEndOf="@+id/priceSymbol"
-                    app:layout_constraintTop_toTopOf="@+id/price" />
+                    app:layout_constraintTop_toTopOf="@+id/price"
+                    app:usdPrice="@{marketItem.priceUsd}" />
 
                 <TextView
                     android:id="@+id/priceChange"
@@ -182,11 +183,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
-                    android:text="@{String.format(@string/market_detail_volume_format, marketItem.volumeText, marketItem.refTokenName)}"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/colorWhite"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/change" />
+                    app:layout_constraintTop_toBottomOf="@+id/change"
+                    app:refToken="@{marketItem.refTokenName}"
+                    app:rowVolumeDetail="@{marketItem.volume}" />
 
                 <TextView
                     android:id="@+id/priceHigh"

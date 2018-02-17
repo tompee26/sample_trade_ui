@@ -15,7 +15,6 @@ import com.tompee.binance.databinding.ActivityMarketDetailBinding;
 import com.tompee.binance.model.MarketItem;
 
 public class MarketDetailActivity extends AppCompatActivity {
-    public static final String MARKET_DETAIL_TAG = "market_detail";
     public static final String MARKET_DETAIL_TOKEN = "market_token";
 
     private ActivityMarketDetailBinding mBinding;
@@ -27,24 +26,8 @@ public class MarketDetailActivity extends AppCompatActivity {
         mBinding = DataBindingUtil.setContentView(this,
                 R.layout.activity_market_detail);
 
-        MarketItem item;
         String token = getIntent().getStringExtra(MARKET_DETAIL_TOKEN);
-        int position = getIntent().getIntExtra(MARKET_DETAIL_TAG, 0);
-        switch (token) {
-            case "BNB":
-                item = MainActivity.tokenListBnb.get(position);
-                break;
-            case "BTC":
-                item = MainActivity.tokenListBtc.get(position);
-                break;
-            case "ETH":
-                item = MainActivity.tokenListEth.get(position);
-                break;
-            default:
-                item = MainActivity.tokenListUsdt.get(position);
-                break;
-        }
-
+        MarketItem item = MainActivity.tokenMap.get(token);
         mBinding.toolbarView.toolbarText.setText(String.format(getString(R.string.market_detail_toolbar_format),
                 item.getTokenName(), item.getRefTokenName()));
         mBinding.toolbarView.toolbarHome.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +44,7 @@ public class MarketDetailActivity extends AppCompatActivity {
         mBinding.depth.setOnClickListener(new DepthClickListener(this));
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.orderTradeContainer, OrderBookFragment.getInstance(token, position));
+        transaction.replace(R.id.orderTradeContainer, OrderBookFragment.getInstance(token));
         transaction.commit();
     }
 

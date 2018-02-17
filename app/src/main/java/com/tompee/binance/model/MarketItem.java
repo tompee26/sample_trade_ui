@@ -1,9 +1,7 @@
 package com.tompee.binance.model;
 
-import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.util.Log;
 
 import com.tompee.binance.BR;
 
@@ -42,21 +40,14 @@ public class MarketItem extends BaseObservable {
         return mRefTokenName;
     }
 
-
+    @Bindable
     public double getVolume() {
         return mVolume;
     }
 
     public void setVolume(double volume) {
         mVolume = volume;
-        notifyPropertyChanged(BR.volumeText);
-    }
-
-    @Bindable
-    public String getVolumeText() {
-        DecimalFormat df = new DecimalFormat("#,###.00", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
-        df.setMaximumFractionDigits(340);
-        return df.format(mVolume);
+        notifyPropertyChanged(BR.volume);
     }
 
     @Bindable
@@ -90,14 +81,20 @@ public class MarketItem extends BaseObservable {
     }
 
     @Bindable
-    public double getPriceChange() {
+    public double getPriceChangeIndicator() {
         return mPriceChangeIndicator;
     }
 
+    @Bindable
+    public double getPriceChange() {
+        return mPriceChange;
+    }
+
     public void setPriceChange(double priceChange) {
-        mPriceChangeIndicator = mPriceChange - priceChange;
+        mPriceChangeIndicator = priceChange - mPriceChange;
         mPriceChange = priceChange;
         notifyPropertyChanged(BR.priceChange);
+        notifyPropertyChanged(BR.priceChangeIndicator);
     }
 
     @Bindable
