@@ -17,20 +17,28 @@ import okhttp3.WebSocketListener;
 public class BinanceWebSocketListener<T> extends WebSocketListener {
 
     private BinanceApiCallback<T> callback;
-
-    private TypeReference<T> eventTypeReference;
+    private Class<T> eventClass;
 
     BinanceWebSocketListener(BinanceApiCallback<T> callback) {
         this.callback = callback;
-        this.eventTypeReference = new TypeReference<T>() {
-        };
+    }
+
+    BinanceWebSocketListener(BinanceApiCallback<T> callback, Class<T> eventClass) {
+        this.callback = callback;
+        this.eventClass = eventClass;
     }
 
     @Override
     public void onMessage(WebSocket webSocket, String text) {
         ObjectMapper mapper = new ObjectMapper();
         try {
-            T event = mapper.readValue(text, new TypeReference<List<AllMarketTickersEvent>>() {});
+            T event;
+            if (eventClass == null) {
+                event = mapper.readValue(text, new TypeReference<List<AllMarketTickersEvent>>() {
+                });
+            } else {
+                event = mapper.readValue(text, eventClass);
+            }
             callback.onResponse(event);
         } catch (IOException e) {
             Log.d("listener", e.toString());

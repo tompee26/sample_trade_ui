@@ -14,7 +14,6 @@ import java.util.Locale;
 public class MarketItem extends BaseObservable {
     private final String mTokenName;
     private final String mRefTokenName;
-    private final List<OrderBook> mOrderBook;
     private double mVolume;
     private double mPrice;
     private double mPriceUsd;
@@ -27,7 +26,6 @@ public class MarketItem extends BaseObservable {
     public MarketItem(String tokenName, String refTokenName) {
         mTokenName = tokenName;
         mRefTokenName = refTokenName;
-        mOrderBook = new ArrayList<>();
     }
 
     @Bindable
@@ -115,9 +113,5 @@ public class MarketItem extends BaseObservable {
     public void setPriceHigh(double priceHigh) {
         mPriceHigh = priceHigh;
         notifyPropertyChanged(BR.priceHigh);
-    }
-
-    public List<OrderBook> getOrderBook() {
-        return mOrderBook;
     }
 }

@@ -10,61 +10,48 @@ import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
 public class OrderBook extends BaseObservable {
-    private int mBidCount;
+    private double mBidCount;
     private double mBidAmount;
-    private int mAskCount;
+    private double mAskCount;
     private double mAskAmount;
 
     @Bindable
-    public int getBidCount() {
+    public double getBidCount() {
         return mBidCount;
     }
 
-    public void setBidCount(int bidCount) {
+    public void setBidCount(double bidCount) {
         mBidCount = bidCount;
         notifyPropertyChanged(BR.bidCount);
     }
 
+    @Bindable
     public double getBidAmount() {
         return mBidAmount;
     }
 
-    @Bindable
-    public String getBidAmountText() {
-        return getStringFromDouble(mBidAmount);
-    }
-
     public void setBidAmount(double bidAmount) {
         mBidAmount = bidAmount;
-        notifyPropertyChanged(BR.bidAmountText);
-    }
-
-    private static String getStringFromDouble(double value) {
-        DecimalFormat df = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
-        df.setMaximumFractionDigits(8);
-        df.setMinimumFractionDigits(8);
-        return df.format(value);
+        notifyPropertyChanged(BR.bidAmount);
     }
 
     @Bindable
-    public int getAskCount() {
+    public double getAskCount() {
         return mAskCount;
     }
 
-    public void setAskCount(int askCount) {
+    public void setAskCount(double askCount) {
         mAskCount = askCount;
+        notifyPropertyChanged(BR.askCount);
     }
 
+    @Bindable
     public double getAskAmount() {
         return mAskAmount;
     }
 
-    @Bindable
-    public String getAskAmountText() {
-        return getStringFromDouble(mAskAmount);
-    }
-
     public void setAskAmount(double askAmount) {
         mAskAmount = askAmount;
+        notifyPropertyChanged(BR.askAmount);
     }
 }

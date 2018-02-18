@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.tompee.binance.controller.fragment.MarketTradeFragment;
 import com.tompee.binance.controller.fragment.OrderBookFragment;
 import com.tompee.binance.databinding.ActivityMarketDetailBinding;
 import com.tompee.binance.model.MarketItem;
@@ -56,6 +57,11 @@ public class MarketDetailActivity extends AppCompatActivity {
             mBinding.orderBook.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorSelectedOrderTrade));
             mBinding.marketTrades.setTextColor(ContextCompat.getColor(mContext, R.color.colorWhite));
             mBinding.marketTrades.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.orderTradeContainer, OrderBookFragment.
+                    getInstance(getIntent().getStringExtra(MARKET_DETAIL_TOKEN)));
+            transaction.commit();
         }
     }
 
@@ -72,6 +78,11 @@ public class MarketDetailActivity extends AppCompatActivity {
             mBinding.marketTrades.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorSelectedOrderTrade));
             mBinding.orderBook.setTextColor(ContextCompat.getColor(mContext, R.color.colorWhite));
             mBinding.orderBook.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.orderTradeContainer, MarketTradeFragment.
+                    getInstance(getIntent().getStringExtra(MARKET_DETAIL_TOKEN)));
+            transaction.commit();
         }
     }
 

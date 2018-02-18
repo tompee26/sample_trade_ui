@@ -10,6 +10,9 @@ import com.tompee.binance.R;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 public class BindingAdapterUtils {
@@ -128,6 +131,13 @@ public class BindingAdapterUtils {
     @BindingAdapter({"priceChangeSymbol"})
     public static void setPriceSymbolVisibility(View view, double input) {
         view.setVisibility(input == 0 ? View.INVISIBLE : View.VISIBLE);
+    }
+
+    @BindingAdapter({"time"})
+    public static void setTime(TextView view, long time) {
+        Date date = new Date(time);
+        Format format = new SimpleDateFormat("HH:mm:ss");
+        view.setText(format.format(date));
     }
 
     private static String getStringFromDouble(double value) {

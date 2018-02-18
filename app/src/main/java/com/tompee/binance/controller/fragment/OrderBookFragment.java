@@ -2,16 +2,16 @@ package com.tompee.binance.controller.fragment;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.binance.api.client.domain.event.DepthEvent;
+import com.binance.api.client.domain.market.OrderBookEntry;
 import com.tompee.binance.R;
 import com.tompee.binance.controller.adapter.OrderBidAdapter;
 import com.tompee.binance.databinding.FragmentOrderBookBinding;
@@ -21,8 +21,14 @@ import com.tompee.binance.services.api.BinanceWrapper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderBookFragment extends Fragment implements BinanceWrapper.DepthListener {
+public class OrderBookFragment extends Fragment {
     private static final String TOKEN_TAG = "token";
+    private final List<OrderBook> mOrderBookList = new ArrayList<>();
+    private boolean mDestroyFlag;
+    private Handler mHandler;
+    private OrderBidAdapter mOrderAdapter;
+    private OrderBidAdapter mAskAdapter;
+    private boolean mIsPaused;
 
     public static OrderBookFragment getInstance(String token) {
         OrderBookFragment fragment = new OrderBookFragment();
@@ -51,19 +57,74 @@ public class OrderBookFragment extends Fragment implements BinanceWrapper.DepthL
         binding.bidRecyclerView.addItemDecoration(divider);
         binding.askRecyclerView.addItemDecoration(divider);
 
-        BinanceWrapper.getInstance(getContext()).startOrderBookListening(token, this);
-        List<OrderBook> orderBookList = new ArrayList<>();
-        OrderBidAdapter bidAdapter = new OrderBidAdapter(orderBookList, true);
-        binding.bidRecyclerView.setAdapter(bidAdapter);
+        mHandler = new Handler();
+        mOrderAdapter = new OrderBidAdapter(mOrderBookList, true);
+        binding.bidRecyclerView.setAdapter(mOrderAdapter);
 
-        OrderBidAdapter askAdapter = new OrderBidAdapter(orderBookList, false);
-        binding.askRecyclerView.setAdapter(askAdapter);
+        mAskAdapter = new OrderBidAdapter(mOrderBookList, false);
+        binding.askRecyclerView.setAdapter(mAskAdapter);
 
+        new Thread(() -> startListening(token)).start();
         return binding.getRoot();
     }
 
     @Override
-    public void onDepthUpdate(DepthEvent event) {
-        Log.d("orderbook", event.toString());
+    public void onResume() {
+        super.onResume();
+        mIsPaused = false;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mIsPaused = true;
+    }
+
+    private void startListening(String token) {
+        while (!mDestroyFlag) {
+            if (!mIsPaused) {
+                BinanceWrapper.getInstance(getContext()).getOrderBook(token, book -> {
+                    if (mOrderBookList.isEmpty()) {
+                        for (int index = 0; index < 15; index++) {
+                            OrderBookEntry ask = book.getAsks().get(index);
+                            OrderBookEntry bid = book.getBids().get(index);
+
+                            OrderBook entry = new OrderBook();
+                            entry.setAskAmount(Double.parseDouble(ask.getPrice()));
+                            entry.setAskCount(Double.parseDouble(ask.getQty()));
+                            entry.setBidAmount(Double.parseDouble(bid.getPrice()));
+                            entry.setBidCount(Double.parseDouble(ask.getQty()));
+                            mOrderBookList.add(entry);
+                        }
+                        mHandler.post(() -> {
+                            mOrderAdapter.notifyDataSetChanged();
+                            mAskAdapter.notifyDataSetChanged();
+                        });
+                    } else {
+                        for (int index = 0; index < 15; index++) {
+                            OrderBookEntry ask = book.getAsks().get(index);
+                            OrderBookEntry bid = book.getBids().get(index);
+
+                            OrderBook entry = mOrderBookList.get(index);
+                            entry.setAskAmount(Double.parseDouble(ask.getPrice()));
+                            entry.setAskCount(Double.parseDouble(ask.getQty()));
+                            entry.setBidAmount(Double.parseDouble(bid.getPrice()));
+                            entry.setBidCount(Double.parseDouble(ask.getQty()));
+                        }
+                    }
+                });
+            }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mDestroyFlag = true;
     }
 }

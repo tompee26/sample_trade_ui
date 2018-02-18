@@ -41,4 +41,7 @@
     <string name="market_detail_bid_label">Bid</string>
     <string name="market_detail_ask_label">Ask</string>
     <string name="market_detail_full_label">Full</string>
+    <string name="market_trade_time_label">Time</string>
+    <string name="market_trade_price_label">Price</string>
+    <string name="market_trade_amount_label">Amount</string>
 </resources>

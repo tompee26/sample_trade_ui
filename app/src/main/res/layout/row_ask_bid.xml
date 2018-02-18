@@ -19,8 +19,9 @@
             android:id="@+id/askCount"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:text="@{String.valueOf(orderBook.askCount)}"
             android:textColor="@color/colorWhite"
+            android:textSize="12sp"
+            app:doubleText="@{orderBook.bidCount}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -29,8 +30,9 @@
             android:id="@+id/askAmount"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:text="@{String.valueOf(orderBook.askAmountText)}"
             android:textColor="@color/colorNegativeChange"
+            android:textSize="12sp"
+            app:doubleText="@{orderBook.askAmount}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
