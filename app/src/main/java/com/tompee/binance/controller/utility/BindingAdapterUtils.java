@@ -1,7 +1,9 @@
 package com.tompee.binance.controller.utility;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.databinding.BindingAdapter;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.TextView;
@@ -139,6 +141,15 @@ public class BindingAdapterUtils {
         Format format = new SimpleDateFormat("HH:mm:ss");
         view.setText(format.format(date));
     }
+
+    @BindingAdapter({"customWidth"})
+    public static void setWidth(View view, double input) {
+        int width = (int)(input * ((View)view.getParent()).getWidth());
+        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) view.getLayoutParams();
+        params.width = width;
+        view.setLayoutParams(params);
+    }
+
 
     private static String getStringFromDouble(double value) {
         DecimalFormat df = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));

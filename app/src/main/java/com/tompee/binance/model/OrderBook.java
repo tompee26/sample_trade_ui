@@ -12,8 +12,10 @@ import java.util.Locale;
 public class OrderBook extends BaseObservable {
     private double mBidCount;
     private double mBidAmount;
+    private double mBidRelativeQty = 1;
     private double mAskCount;
     private double mAskAmount;
+    private double mAskRelativeQty;
 
     @Bindable
     public double getBidCount() {
@@ -53,5 +55,25 @@ public class OrderBook extends BaseObservable {
     public void setAskAmount(double askAmount) {
         mAskAmount = askAmount;
         notifyPropertyChanged(BR.askAmount);
+    }
+
+    @Bindable
+    public double getBidRelativeQty() {
+        return mBidRelativeQty;
+    }
+
+    public void setBidRelativeQty(double bidRelativeQty) {
+        mBidRelativeQty = 1 - bidRelativeQty;
+        notifyPropertyChanged(BR.bidRelativeQty);
+    }
+
+    @Bindable
+    public double getAskRelativeQty() {
+        return mAskRelativeQty;
+    }
+
+    public void setAskRelativeQty(double askRelativeQty) {
+        mAskRelativeQty = askRelativeQty;
+        notifyPropertyChanged(BR.askRelativeQty);
     }
 }

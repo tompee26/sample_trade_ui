@@ -9,6 +9,7 @@ import com.tompee.binance.controller.adapter.MarketPageAdapter;
 import com.tompee.binance.databinding.ActivityMainBinding;
 import com.tompee.binance.model.MarketItem;
 import com.tompee.binance.model.SortManager;
+import com.tompee.binance.services.api.BinanceWrapper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,6 +36,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mBinding.vol.setOnClickListener(this);
         mBinding.ltp.setOnClickListener(this);
         mBinding.percentChange.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        BinanceWrapper.getInstance(this).startListening();
     }
 
     @Override

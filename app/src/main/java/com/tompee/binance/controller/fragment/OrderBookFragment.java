@@ -84,6 +84,14 @@ public class OrderBookFragment extends Fragment {
         while (!mDestroyFlag) {
             if (!mIsPaused) {
                 BinanceWrapper.getInstance(getContext()).getOrderBook(token, book -> {
+                    double maxBidQty = 0, maxAskQty = 0;
+                    for (int index = 0; index < 15; index++) {
+                        double ask = Double.parseDouble(book.getAsks().get(index).getQty());
+                        double bid = Double.parseDouble(book.getBids().get(index).getQty());
+                        maxBidQty = maxBidQty > bid ? maxBidQty : bid;
+                        maxAskQty = maxAskQty > ask ? maxAskQty : ask;
+                    }
+
                     if (mOrderBookList.isEmpty()) {
                         for (int index = 0; index < 15; index++) {
                             OrderBookEntry ask = book.getAsks().get(index);
@@ -92,8 +100,10 @@ public class OrderBookFragment extends Fragment {
                             OrderBook entry = new OrderBook();
                             entry.setAskAmount(Double.parseDouble(ask.getPrice()));
                             entry.setAskCount(Double.parseDouble(ask.getQty()));
+                            entry.setAskRelativeQty(entry.getAskCount() / maxAskQty);
                             entry.setBidAmount(Double.parseDouble(bid.getPrice()));
-                            entry.setBidCount(Double.parseDouble(ask.getQty()));
+                            entry.setBidCount(Double.parseDouble(bid.getQty()));
+                            entry.setBidRelativeQty(entry.getBidCount() / maxBidQty);
                             mOrderBookList.add(entry);
                         }
                         mHandler.post(() -> {
@@ -108,8 +118,10 @@ public class OrderBookFragment extends Fragment {
                             OrderBook entry = mOrderBookList.get(index);
                             entry.setAskAmount(Double.parseDouble(ask.getPrice()));
                             entry.setAskCount(Double.parseDouble(ask.getQty()));
+                            entry.setAskRelativeQty(entry.getAskCount() / maxAskQty);
                             entry.setBidAmount(Double.parseDouble(bid.getPrice()));
-                            entry.setBidCount(Double.parseDouble(ask.getQty()));
+                            entry.setBidCount(Double.parseDouble(bid.getQty()));
+                            entry.setBidRelativeQty(entry.getBidCount() / maxBidQty);
                         }
                     }
                 });

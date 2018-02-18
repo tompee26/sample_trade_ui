@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ListFragment extends Fragment implements ItemClickListener.OnItemClickListener, IListFragment,
+public class ListFragment extends Fragment implements ItemClickListener.OnItemClickListener,
         BinanceWrapper.MarketUpdateListener {
     public static final String TOKEN_TAG = "refToken";
     private final List<MarketItem> mTokenList = new ArrayList<>();
@@ -64,9 +65,6 @@ public class ListFragment extends Fragment implements ItemClickListener.OnItemCl
         mMarketItemAdapter = new MarketItemAdapter(mTokenList);
         binding.recyclerView.setAdapter(mMarketItemAdapter);
 
-        BinanceWrapper wrapper = BinanceWrapper.getInstance(getContext());
-        wrapper.addMarketUpdateHandler(this);
-
         mHandler = new Handler();
         MainActivity.sortManager.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
@@ -77,6 +75,12 @@ public class ListFragment extends Fragment implements ItemClickListener.OnItemCl
             }
         });
         return binding.getRoot();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        BinanceWrapper.getInstance(getContext()).addMarketUpdateHandler(this);
     }
 
     @Override
@@ -97,7 +101,6 @@ public class ListFragment extends Fragment implements ItemClickListener.OnItemCl
         }
     }
 
-    @Override
     public void sort() {
         switch (MainActivity.sortManager.getSortType()) {
             case PAIR:
@@ -131,9 +134,9 @@ public class ListFragment extends Fragment implements ItemClickListener.OnItemCl
     }
 
     @Override
-    public boolean onMarketTickerUpdate(AllMarketTickersEvent event) {
+    public void onMarketTickerUpdate(AllMarketTickersEvent event) {
         if (!event.getSymbol().endsWith(mRefToken)) {
-            return true;
+            return;
         }
 
         MarketItem item;
@@ -151,6 +154,10 @@ public class ListFragment extends Fragment implements ItemClickListener.OnItemCl
         item.setVolume(event.getTotalTradedQuoteAssetVolume());
         item.setPriceLow(event.getLowPrice());
         item.setPriceHigh(event.getHighPrice());
+        if (event.getSymbol().equals("ETCBTC")) {
+            Log.d("listfragment", "Price change: " + event.getPriceChange());
+            Log.d("listfragment", "Price indicator: " + item.getPriceChangeIndicator());
+        }
 
         if (mRefToken.equals("USDT")) {
             item.setPriceUsd(item.getPrice());
@@ -169,6 +176,5 @@ public class ListFragment extends Fragment implements ItemClickListener.OnItemCl
                 mMarketItemAdapter.notifyDataSetChanged();
             });
         }
-        return true;
     }
 }
