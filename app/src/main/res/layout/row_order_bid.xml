@@ -11,16 +11,15 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:background="@color/colorOrderBidBg">
+        android:layout_height="20dp">
 
         <View
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@color/colorListBg"
+            android:background="@color/colorOrderBidBg"
             app:customWidth="@{orderBook.bidRelativeQty}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView

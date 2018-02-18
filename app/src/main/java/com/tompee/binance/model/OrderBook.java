@@ -12,7 +12,7 @@ import java.util.Locale;
 public class OrderBook extends BaseObservable {
     private double mBidCount;
     private double mBidAmount;
-    private double mBidRelativeQty = 1;
+    private double mBidRelativeQty;
     private double mAskCount;
     private double mAskAmount;
     private double mAskRelativeQty;
@@ -63,7 +63,7 @@ public class OrderBook extends BaseObservable {
     }
 
     public void setBidRelativeQty(double bidRelativeQty) {
-        mBidRelativeQty = 1 - bidRelativeQty;
+        mBidRelativeQty = bidRelativeQty;
         notifyPropertyChanged(BR.bidRelativeQty);
     }
 

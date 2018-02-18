@@ -3,6 +3,7 @@ package com.tompee.binance;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 
 import com.tompee.binance.controller.adapter.MarketPageAdapter;
@@ -28,7 +29,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mBinding.setSortManager(sortManager);
         mBinding.tabLayoutMain.setupWithViewPager(mBinding.viewPager);
         MarketPageAdapter marketPageAdapter = new MarketPageAdapter(this, getSupportFragmentManager());
-        mBinding.viewPager.setOffscreenPageLimit(1);
+        mBinding.viewPager.setOffscreenPageLimit(marketPageAdapter.getCount());
         mBinding.viewPager.setAdapter(marketPageAdapter);
 
         onClick(mBinding.vol);
@@ -41,6 +42,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d("ListFragment", "start listening");
         BinanceWrapper.getInstance(this).startListening();
     }
 

@@ -80,6 +80,7 @@ public class ListFragment extends Fragment implements ItemClickListener.OnItemCl
     @Override
     public void onResume() {
         super.onResume();
+        Log.d("ListFragment", "Adding market update handler");
         BinanceWrapper.getInstance(getContext()).addMarketUpdateHandler(this);
     }
 
@@ -154,10 +155,6 @@ public class ListFragment extends Fragment implements ItemClickListener.OnItemCl
         item.setVolume(event.getTotalTradedQuoteAssetVolume());
         item.setPriceLow(event.getLowPrice());
         item.setPriceHigh(event.getHighPrice());
-        if (event.getSymbol().equals("ETCBTC")) {
-            Log.d("listfragment", "Price change: " + event.getPriceChange());
-            Log.d("listfragment", "Price indicator: " + item.getPriceChangeIndicator());
-        }
 
         if (mRefToken.equals("USDT")) {
             item.setPriceUsd(item.getPrice());

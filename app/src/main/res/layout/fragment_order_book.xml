@@ -96,6 +96,7 @@
             android:paddingStart="16dp"
             android:text="8"
             android:textColor="@color/colorWhite"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
